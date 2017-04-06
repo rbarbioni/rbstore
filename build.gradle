@@ -10,18 +10,15 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "gradle.plugin.com.palantir:jacoco-coverage:0.4.0"
 	}
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
-apply plugin: "com.palantir.jacoco-coverage"
 
 war {
-	baseName = 'bluebank'
+	baseName = 'rbstore'
 	version = '0.0.1-SNAPSHOT'
 }
 

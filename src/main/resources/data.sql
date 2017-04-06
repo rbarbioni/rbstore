@@ -1,5 +1,0 @@
-INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '31449881114', '1000', '10000', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
-INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '65261248876', '2000', '20000', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
-INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '28865762128', '3000', '30000', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
-INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '93041807084', '4000', '40000', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
-INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '14140472669', '5000', '50000', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);

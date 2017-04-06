@@ -33,7 +33,7 @@ import static org.mockito.Matchers.anyString;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AccountControllerTest {
+public class ProductControllerTest {
 
     @MockBean
     private AccountService accountService;
