@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SecurityHttpFilter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rbstore</a> &gt; <a href="index.source.html" class="el_package">br.com.rbarbioni.bluebank.secure</a> &gt; <span class="el_source">SecurityHttpFilter.java</span></div><h1>SecurityHttpFilter.java</h1><pre class="source lang-java linenums">package br.com.rbarbioni.bluebank.secure;
+
+import br.com.rbarbioni.bluebank.model.Account;
+import br.com.rbarbioni.bluebank.model.dto.ResponseErrorDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+/**
+ * Created by renan on 12/02/17.
+ */
+
+@Component
+public class SecurityHttpFilter extends GenericFilterBean {
+
+    private final JWTService jwtService;
+
+    private final ObjectMapper objectMapper;
+
+    private final AuthenticationHelper authenticationHelper;
+
+    @Autowired
+<span class="fc" id="L35">    public SecurityHttpFilter(JWTService jwtService, ObjectMapper objectMapper, AuthenticationHelper authenticationHelper) {</span>
+<span class="fc" id="L36">        this.jwtService = jwtService;</span>
+<span class="fc" id="L37">        this.objectMapper = objectMapper;</span>
+<span class="fc" id="L38">        this.authenticationHelper = authenticationHelper;</span>
+<span class="fc" id="L39">    }</span>
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+<span class="fc" id="L44">        HttpServletRequest httpRequest = (HttpServletRequest)request;</span>
+<span class="fc" id="L45">        HttpServletResponse httpResponse = (HttpServletResponse) response;</span>
+
+<span class="fc" id="L47">        String path  = httpRequest.getRequestURI();</span>
+
+<span class="fc bfc" id="L49" title="All 4 branches covered.">        if(path.contains(&quot;/login&quot;) || !path.contains(&quot;/api&quot;)){</span>
+<span class="fc" id="L50">            chain.doFilter(request,response);</span>
+<span class="fc" id="L51">            return;</span>
+        }
+
+<span class="fc" id="L54">        String token = httpRequest.getHeader(&quot;Authorization&quot;);</span>
+
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if(token == null || token.isEmpty()){</span>
+<span class="fc" id="L57">            this.responseError(HttpStatus.UNAUTHORIZED.value(), &quot;Unauthorized&quot;, httpResponse);</span>
+<span class="fc" id="L58">            return;</span>
+        }
+
+        try{
+<span class="fc" id="L62">            Account account = this.jwtService.decode(token);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            if(account != null){</span>
+<span class="fc" id="L64">                this.authenticationHelper.auth(account);</span>
+<span class="fc" id="L65">                chain.doFilter(request,response);</span>
+            }
+<span class="fc" id="L67">        }catch (IllegalArgumentException  | ExpiredJwtException e){</span>
+<span class="fc" id="L68">            this.responseError(HttpStatus.UNAUTHORIZED.value(), &quot;Unauthorized&quot;, httpResponse);</span>
+<span class="fc" id="L69">        }catch (Exception e){</span>
+<span class="fc" id="L70">            this.responseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), &quot;Internal Server Error&quot;, httpResponse);</span>
+<span class="fc" id="L71">        }</span>
+<span class="fc" id="L72">    }</span>
+
+
+    private void responseError(Integer status, String message, HttpServletResponse response) throws IOException {
+<span class="fc" id="L76">        response.setContentType(&quot;application/json&quot;);</span>
+<span class="fc" id="L77">        response.setStatus(status);</span>
+<span class="fc" id="L78">        PrintWriter writer = response.getWriter();</span>
+<span class="fc" id="L79">        writer.print(this.objectMapper.writeValueAsString(new ResponseErrorDto(message, status)));</span>
+<span class="fc" id="L80">        writer.close();</span>
+<span class="fc" id="L81">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

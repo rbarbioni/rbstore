@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/br.com.rbarbioni.bluebank.secure.html">br.com.rbarbioni.bluebank.secure</a> &gt; SecurityHttpFilterTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">5</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.362s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">dofilterInvalidTokenTest</td>
+<td>0.132s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">dofilterTest</td>
+<td>0.090s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">dofilterTokenExpiratedTest</td>
+<td>0.104s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">dofilterTokenNullTest</td>
+<td>0.092s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">dofilterUnsafePathTest</td>
+<td>0.944s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2017-04-05 20:56:36.362  INFO 4172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest], using SpringBootContextLoader
+2017-04-05 20:56:36.367  INFO 4172 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2017-04-05 20:56:36.369  INFO 4172 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest]: SecurityHttpFilterTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2017-04-05 20:56:36.403  INFO 4172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration br.com.rbarbioni.bluebank.Application for test class br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest
+2017-04-05 20:56:36.464 DEBUG 4172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : @TestExecutionListeners is not present for class [br.com.rbarbioni.bluebank.secure.SecurityHttpFilterTest]: using defaults.
+2017-04-05 20:56:36.478  INFO 4172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2017-04-05 20:56:36.498  INFO 4172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@40ab7f26, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@982c525, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@59e9a94d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@56fb6f7f, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4d3278c9, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@520627a7, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@46b14f6b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4bbc5055, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@15168ddb, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@764ebbc1, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3a487874, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@135fb990]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 2.14.1</a> at 05/04/2017 20:56:52</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '31449881114', '1500', '50010', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '65261248876', '1600', '60010', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '28865762128', '1700', '70010', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '93041807084', '1800', '80010', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '14140472669', '1900', '90010', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);
+INSERT INTO account (created_date, cpf, agencia, numero, password, saldo) VALUES ('2017-01-01', '14140472669', '1234', '12345', '5f4dcc3b5aa765d61d8327deb882cf99', 1000);

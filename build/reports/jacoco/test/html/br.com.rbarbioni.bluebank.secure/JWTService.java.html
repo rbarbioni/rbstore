@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JWTService.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rbstore</a> &gt; <a href="index.source.html" class="el_package">br.com.rbarbioni.bluebank.secure</a> &gt; <span class="el_source">JWTService.java</span></div><h1>JWTService.java</h1><pre class="source lang-java linenums">package br.com.rbarbioni.bluebank.secure;
+
+import br.com.rbarbioni.bluebank.model.Account;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
+import java.security.Key;
+import java.util.Base64;
+import java.util.Date;
+
+/**
+ * Created by renan on 12/02/2017.
+ */
+
+@Service
+public class JWTService {
+
+    private final String secret;
+
+    private final Long expirationTime;
+
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+<span class="fc" id="L35">    public JWTService(Environment env, ObjectMapper objectMapper) {</span>
+<span class="fc" id="L36">        this.objectMapper = objectMapper;</span>
+<span class="fc" id="L37">        this.secret = env.getProperty(&quot;jwt.secret&quot;);</span>
+<span class="fc" id="L38">        this.expirationTime = Long.valueOf(env.getProperty(&quot;jwt.expiration_time&quot;)) * 60 * 1000;</span>
+<span class="fc" id="L39">    }</span>
+
+    public String encode(Account account) throws JsonProcessingException {
+
+<span class="fc" id="L43">        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;</span>
+
+<span class="fc" id="L45">        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secret);</span>
+<span class="fc" id="L46">        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());</span>
+
+<span class="fc" id="L48">        JwtBuilder builder = Jwts.builder();</span>
+<span class="fc" id="L49">        Claims claims = Jwts.claims();</span>
+<span class="fc" id="L50">        claims.setId(account.getId().toString()).put(&quot;payload&quot;, this.objectMapper.writeValueAsString(account));</span>
+<span class="fc" id="L51">        builder.setClaims(claims).signWith(signatureAlgorithm, signingKey);</span>
+
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (expirationTime &gt;= 0) {</span>
+<span class="fc" id="L54">            long expMillis = System.currentTimeMillis() + expirationTime;</span>
+<span class="fc" id="L55">            Date exp = new Date(expMillis);</span>
+<span class="fc" id="L56">            builder.setExpiration(exp);</span>
+        }
+<span class="fc" id="L58">        return Base64.getEncoder().encodeToString(builder.compact().getBytes());</span>
+    }
+
+    public Account decode(String token) throws IOException {
+
+<span class="fc" id="L63">        Claims claims = Jwts.parser()</span>
+<span class="fc" id="L64">                .setSigningKey(DatatypeConverter.parseBase64Binary(secret))</span>
+<span class="fc" id="L65">                .parseClaimsJws(new String(Base64.getDecoder().decode(token))).getBody();</span>
+<span class="fc" id="L66">        return this.objectMapper.readValue(claims.get(&quot;payload&quot;).toString(), Account.class);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,0 +1,20 @@
+{
+  "name": "BlueBank",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "angular": "1.6.2",
+    "angular-resource": "1.6.2",
+    "angular-cookies": "1.6.2",
+    "angular-sanitize": "1.6.2",
+    "angular-animate": "1.6.2",
+    "angular-touch": "1.6.2",
+    "angular-route": "1.6.2",
+    "angular-ui-bootstrap": "2.5.0",
+    "angular-md5": "0.1.10",
+    "bootstrap-datepicker": "1.6.4"
+  }
+}

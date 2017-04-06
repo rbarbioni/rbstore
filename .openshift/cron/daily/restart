@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+PID=$(ps -ef | grep java.*\.jar | grep -v grep | awk '{ print $2 }')
+
+if [ -z "$PID" ]
+then
+    client_result "Application is already stopped"
+else
+    kill $PID
+fi
+
+set -x
+
+cd $OPENSHIFT_REPO_DIR
+nohup java -Xms384m -Xmx512m -jar build/libs/*.war -Dfile.encoding=UTF-8 --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} --spring.profiles.active=openshift &
