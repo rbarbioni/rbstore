@@ -1,6 +1,7 @@
 package br.com.rbarbioni.rbstore.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,7 +18,12 @@ public class Product implements Serializable {
     private final BigDecimal price;
 
     @JsonCreator
-    public Product(Long id, String name, String image, String details, BigDecimal price) {
+    public Product(
+            @JsonProperty("id") Long id,
+            @JsonProperty("name") String name,
+            @JsonProperty("image") String image,
+            @JsonProperty("details") String details,
+            @JsonProperty("price") BigDecimal price) {
         this.id = id;
         this.name = name;
         this.image = image;

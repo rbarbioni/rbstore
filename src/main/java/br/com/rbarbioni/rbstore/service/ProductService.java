@@ -5,6 +5,7 @@ import br.com.rbarbioni.rbstore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> findAll(){
+    public Collection<Product> findAll(){
         return this.productRepository.findAll();
     }
 
