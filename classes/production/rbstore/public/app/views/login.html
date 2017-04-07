@@ -1,0 +1,53 @@
+<div class="container" ng-controller="LoginController">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading" style="background-color: #ffffff;" >
+                    <img src="{{contextUrl}}/app/images/pusherad-1.png" />
+                </div>
+                <div class="panel-body" >
+                    <form name="FormLoginName" id="idFormLogin" class="form-login" ng-submit="logar(FormLoginName);">
+
+                        <div class="login-wrap">
+                            <div class="alert alert-danger" ng-if="error === true" ng-cloak>
+                                <i class="fa fa-times-circle iconError" style=""></i>
+                                <p ng-repeat="msg in messageResponse">{{msg}}</p>
+                            </div>
+                            <div class="alert alert-warning" ng-if="warning === true" role="alert" ng-cloak>
+                                <i class="fa fa-warning iconWarning"></i>
+                                <p ng-repeat="msg in messageResponse">{{msg}}</p>
+                            </div>
+                            <label>Usuário</label>
+                            <input id="username" type="text" name="username" class="form-control" ng-value="usuario" ng-model="username" autofocus required>
+                            <br>
+                            <label>Senha</label>
+                            <input id="password" type="password" class="form-control" ng-model="password" name="password" required>
+                            <label class="checkbox">
+                                <span class="pull-right">
+                        <a data-toggle="modal" ng-click="modalForgotPassword()"> Esqueceu sua senha?</a>
+
+                    </span>
+                            </label>
+                            <button class="btn btn-theme btn-block" ng-click="resendEmail();" ng-if="btnReenviar" ng-cloak>
+                                <section class="glyphicon glyphicon-envelope" aria-hidden="true"></section> Reenviar e-mail </button>
+                            <button type="submit" class="btn btn-theme btn-block"><i class="fa fa-lock"></i> Entrar </button>
+                            <hr>
+                            <div class="login-social-link centered" ng-if="socialNetwork" ng-cloak>
+                                <p>ou você pode entrar através de sua rede social</p>
+                                <button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
+                                <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> Twitter</button>
+                            </div>
+                            <div class="registration">
+                                Não tem uma conta ainda?
+                                <br/>
+                                <a data-toggle="modal" class="" ng-click="modalCadastro()">
+                                    Cadastre-se!
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

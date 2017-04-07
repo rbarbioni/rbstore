@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="br.com.rbarbioni.bluebank.model.dto.AccountTransferDtoTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2017-04-05T23:56:08" hostname="DESKTOP-EV06N04" time="0.005">
-  <properties/>
-  <testcase name="sourceAndDestinationNotEqualsTest" classname="br.com.rbarbioni.bluebank.model.dto.AccountTransferDtoTest" time="0.002"/>
-  <testcase name="gettersAndSetterTest" classname="br.com.rbarbioni.bluebank.model.dto.AccountTransferDtoTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
