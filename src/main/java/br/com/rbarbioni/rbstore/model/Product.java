@@ -24,7 +24,8 @@ public class Product implements Serializable {
             @JsonProperty("name") String name,
             @JsonProperty("image") String image,
             @JsonProperty("details") String details,
-            @JsonProperty("price") BigDecimal price, @JsonProperty("ratting") Integer ratting) {
+            @JsonProperty("price") BigDecimal price,
+            @JsonProperty("ratting") Integer ratting) {
         this.id = id;
         this.name = name;
         this.image = image;
