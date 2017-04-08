@@ -1,20 +1,26 @@
-<div class="jumbotron" ng-controller="HomeController">
+<div class="container" ng-controller="HomeController">
 
-    <div class="container">
+    <div class="row">
+        <div>
+            <div class="row">
 
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading" align="center" style="background-color: #ffffff;">
-                        <h3>Saldo da Conta</h3>
-                    </div>
-                    <div class="panel-body" align="center">
-                        {{account.saldo | currency}}
+                <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="p in products">
+                    <div class="thumbnail">
+                        <img src="{{p.image}}" alt="">
+                        <div class="caption">
+                            <h4 class="pull-right">{{p.price}}</h4>
+                            <h4><a ng-href="#/product/{{p.id}}" >{{p.name}}</a>
+                            </h4>
+                            <p>{{p.details}}</p>
+                        </div>
+                        <div class="ratings">
+                            <p>
+                                <span ng-repeat="t in getTimes(p.ratting) track by $index" class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

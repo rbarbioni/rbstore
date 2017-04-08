@@ -1,5 +1,5 @@
 /*global $ */
-var app = angular.module('blueBank',
+var app = angular.module('rbstore',
     [
         'ngRoute',
         'ngResource',
@@ -10,7 +10,6 @@ var app = angular.module('blueBank',
 
 
 var endpoint = '';
-var account = null;
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -18,19 +17,18 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/', {
             templateUrl : 'app/views/home.html'
         })
-        
-        .when('/transfer', {
-            templateUrl : 'app/views/transfer.html'
+        .when('/product/:id', {
+            templateUrl : 'app/views/product.html'
         })
-        
-        .when('/extract', {
-            templateUrl : 'app/views/statement.html'
+        .when('/cart', {
+            templateUrl : 'app/views/cart.html'
+        })
+        .otherwise({
+            redirectTo: '/'
         });
 
-    $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-    });
+    $locationProvider.html5Mode(false);
+    $locationProvider.hashPrefix('');
 });
 
 app.run(['$location',

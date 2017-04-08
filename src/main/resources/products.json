@@ -1,58 +1,74 @@
 [
   {
     "id": 1,
-    "name": "Game Xbox One DeadrRising 4",
+    "name": "Jogo Xbox One DeadrRising 4",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/10190526-220-220/jogo-xbox-one-dead-rising-4.jpg",
     "price": 99.99,
-    "details": "Em Dead Rising 4, o fotojornalista Frank West está de volta em um novo capítulo da franquia. Agora, perigosos zumbis estão envolvidos em um misterioso surto que invade a cidade de Willamette, Colorado. Para se aventurar pela saga, o jogador vai explorar novos jeitos de personalizar armas e personagens. Para a experiência ficar ainda mais emocionante, ele vai encontrar funcionalidades que incluem novas classes de zumbis e exofatos.Idioma do jogo em inglês. Pode ser jogado em rede e por até 2 jogadores. Idade recomendada: 14 anos.Imagens meramente ilustrativas."
+    "ratting": 3,
+    "details": "Em Dead Rising 4, o fotojornalista Frank West está de volta em um novo capítulo da franquia. Agora, perigosos zumbis estão envolvidos em um misterioso surto que invade a cidade de Willamette, Colorado. Para se aventurar pela saga, o jogador vai explorar novos jeitos de personalizar armas e personagens. Para a experiência ficar ainda mais emocionante, ele vai encontrar funcionalidades que incluem novas classes de zumbis e exofatos. Idioma do jogo em inglês. Idioma do jogo em portugês. Idioma do jogo em espanhol. Idioma do jogo em frances. Idioma do jogo em inglês. Pode ser jogado em rede e por até 2 jogadores. Idade recomendada: 14 anos de idade. Imagens meramente ilustrativas."
   },
   {
     "id": 2,
-    "name": "Game Xbox 360 Dance Central 3",
+    "name": "Jogo Xbox 360 Dance Central 3",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/4405321-220-220/jogo-xbox-360-dance-central-3.jpg",
-    "price": 59.99,
+    "price": 9.99,
+    "ratting": 4,
     "details": "Você viajará no tempo aprendendo grandes danças do passado e os passos mais incríveis do presente. Com mais de 40 sucessos musicais, diversas coreografias e um novo modo de dança para até 8 jogadores você descobrirá o dançarino que há em você. Com mais de 40 músicas, incluindo grandes hits do passado e músicas atuais, Dance Central 3 conta com a trilha sonora mais variadas em um jogo de dança. Além disso, suas bibliotecas de músicas do Dance Central original e do Dance Central 2 poderão ser importadas para Dance Central 3. Uma Loja de Músicas dentro do jogo permite que você continue expandindo sua biblioteca, em um total de mais de 140 músicas disponíveis no lançamento do jogo."
   },
   {
     "id": 3,
-    "name": "Jogo para PS4 Resident Evil 7: Biohazard Capcom",
+    "name": "Jogo PS4 Resident Evil 7",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/10152883-220-220/jogo-para-ps4-resident-evil-7--biohazard-capcom.jpg",
-    "price": 199.99,
+    "price": 249.99,
+    "ratting": 4,
     "details": "O Jogo para PS4, Resident Evil 7: Biohazard, apresenta a história de Ethan, que na busca por sua esposa desaparecida, acaba por parar em uma fazenda misteriosa na pequena cidade norte-americana de Dulvey. No jogo, o primeiro da franquia a usar perspectiva em primeira pessoa, o usuário enfrentará inimigos, decifrará quebra-cabeças e deverá selecionar o que deve ser carregado pelo personagem, graças à volta do sistema de inventário. Resident Evil 7 : Bioharzard, que foi criado com a tecnologia RE Engine para uma experiência fotorrealista inédita, também é compatível com óculos de realidade virtual e conta com legendas em português do Brasil."
   },
   {
     "id": 4,
-    "name": "Jogo para PS4 FIFA 17 EA Sports",
+    "name": "Jogo para PS4 FIFA 17",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/9405908-220-220/jogo-para-ps4-fifa-17-ea-sports.jpg",
-    "price": 149.99,
-    "details": "Agora quem está no controle de tudo é você! Com o Fifa 17 EA Sports você controla todos os momentos em campo com a inovação total na maneira com que os jogadores pensam, se movimentam, interagem fisicamente com os adversários e executam ataques. Recrie jogadas ensaiadas, de cobranças de pênaltis a escanteios, insira personalidade e sinta o controle em todas as situações de bola parada."
+    "price": 169.99,
+    "ratting": 3,
+    "details": "Agora quem está no controle de tudo é você! Com o Fifa 17 EA Sports você controla todos os momentos em campo com a inovação total na maneira com que os jogadores pensam, se movimentam, interagem fisicamente com os adversários e executam ataques. Recrie jogadas ensaiadas, de cobranças de pênaltis a escanteios"
   },
   {
     "id": 5,
-    "name": "Jogo GTA V (GTA 5) Grand Theft Auto V PS4",
+    "name": "Jogo PS4 GTA V PS4",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/11007651-220-220/jogo-gta-v--gta-5--grand-theft-auto-v-ps4.jpg",
     "price": 99.99,
+    "ratting": 5,
     "details": "Explore o deslumbrante mundo de Los Santos e Blaine County na experiência definitiva de Grand Theft Auto V, apresentando amplas atualizações e melhorias técnicas tanto para jogadores novos quanto para os que estão retornando. Além de distâncias maiores de renderização e melhor resolução, os jogadores podem esperar diversas adições e melhorias, incluindo"
   },
   {
     "id": 6,
-    "name": "Jogo para PS4 Pro Evolution Soccer 2017 Konami",
+    "name": "Jogo PS4 PES 2017",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/9055216-220-220/jogo-para-ps4-pro-evolution-soccer-2017-konami.jpg",
     "price": 119.99,
-    "details": "O retorno da franquia mais famosa de futebol com melhorias e novos recursos! O PES2017 Pró Evolution Soccer chegou muito mais realista, com passes precisos, controle total do time para uma jogada mais ofensiva ou defensiva, além de controle de escanteio e jogadores com movimentos mais naturais. Os novos recursos tanto de jogabilidade quanto de interatividade chegaram para melhorar definitivamente a experiência do jogador."
+    "ratting": 5,
+    "details": "O retorno da franquia mais famosa de futebol com melhorias e novos recursos! O PES2017 Pró Evolution Soccer chegou muito mais realista, com passes precisos, controle total do time para uma jogada mais ofensiva ou defensiva, além de controle de escanteio e jogadores com movimentos mais naturais. Os novos recursos tanto de jogabilidade"
   },
   {
     "id": 7,
-    "name": "Jogo God of War III Remasterizado para PS4 Sony",
+    "name": "Jogo PS4 God of War III",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/4375672-220-220/jogo-god-of-war-iii-remasterizado-para-ps4-sony-dadc.jpg",
     "price": 39.99,
+    "ratting": 5,
     "details": "O Jogo God of War III, desenvolvido para a terceira geração do console pelo Santa Monica Studio da Sony Computer Entertainment, agora está disponível em versão remasterizada para Playstation 4 com compatibilidade Full HD 1080p em 60fps e com todos os DLCs inclusos. A Saga de Kratos em sua busca por vingança contra os deuses que o traíram traz batalhas épicas ambientadas na mitologia grega."
   },
   {
     "id": 8,
-    "name": "Jogo para PS4 Uncharted 4 A Thief`s End Sony",
+    "name": "Jogo PS4 Uncharted 4",
     "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/10796413-220-220/jogo-para-ps4-uncharted-4-a-thief-s-end-sony.jpg",
     "price": 199.99,
+    "ratting": 5,
     "details": "O jogo Uncharted 4: A Thief´s End, título exclusivo da Sony, transporta os jogadores para uma aventura com o icônico personagem Nathan Drake, por um mundo cinematográfico, com uma história envolvente onde a Naughty Dog trabalhou nos pequenos detalhes do game para tornar o último título da franquia com o caçador de tesouros Nathan Drake épico para os players de todos os gêneros."
+  },
+  {
+    "id": 9,
+    "name": "Jogo PS4 Need For Speed",
+    "image": "https://static.wmobjects.com.br/imgres/arquivos/ids/11038771-220-220/jogo-need-for-speed-ps4.jpg",
+    "price": 129.99,
+    "ratting": 5,
+    "details": "Cinco jeitos de jogar: O Need for Speed está de volta com Cinco Jeitos de Jogar - Velocidade, Estilo, Criação, Grupo e Fora da lei, possibilitando ganhar reputação e obter a vitória final do seu jeito. Combine todos os cinco para criar o momento perfeito de Need for Speed: pilotagem superveloz, derrapagens nas curvas no seu veículo personalizado ao lado dos amigos, enquanto é perseguido pela polícia."
   }
 ]

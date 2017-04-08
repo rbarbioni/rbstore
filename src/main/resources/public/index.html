@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html ng-app="blueBank">
+<html ng-app="rbstore">
 
 <head>
 
     <meta charset="UTF-8">
-
+    <base href="/">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" />
@@ -21,96 +21,32 @@
     <script src="app/scripts/app.js"></script>
 
     <script src="app/scripts/controllers/home-controller.js"></script>
-    <script src="app/scripts/controllers/transfer-controller.js"></script>
-    <script src="app/scripts/controllers/statement-controller.js"></script>
-    <script src="app/scripts/controllers/login-controller.js"></script>
-    <script src="app/scripts/controllers/app-controller.js"></script>
+    <script src="app/scripts/controllers/cart-controller.js"></script>
+    <script src="app/scripts/controllers/product-controller.js"></script>
+    <script src="app/scripts/controllers/product-factory.js"></script>
+
 
 </head>
 
-    <body ng-controller="AppController">
+<body ng-controller="HomeController">
 
-    <div class="jumbotron vertical-center" ng-show="account.token == null">
+    <nav class="navbar navbar-default" role="navigation">
 
-        <div class="container" ng-controller="LoginController">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="login-panel panel panel-default">
-                        <div class="panel-heading" align="center" style="background-color: #ffffff;">
-                            <h3>BlueBank</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form name="FormLoginName" id="idFormLogin" class="form-login" ng-submit="login();">
+        <a class="navbar-brand navbar-right col-sm-3" ng-href="#/cart">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            <span class="badge">{{getCarts().length}}</span></a>
+        </a>
 
-                                <div class="login-wrap">
-
-                                    <div class="alert alert-danger" ng-if="errorMessage != null" ng-cloak>
-                                        <p>{{errorMessage}}</p>
-                                    </div>
-
-                                    <label>CPF</label>
-                                    <input id="cpf" type="text" name="cpf" class="form-control" ng-value="account.cpf" ng-model="account.cpf" autofocus required>
-
-                                    <label>Agencia</label>
-                                    <input id="agencia" type="text" name="agencia" class="form-control" ng-value="account.agencia" ng-model="account.agencia" required>
-
-                                    <label>Conta</label>
-                                    <input id="conta" type="text" name="conta" class="form-control" ng-value="account.numero" ng-model="account.numero" required>
-
-                                    <label>Senha</label>
-                                    <input id="password" type="password" class="form-control" ng-model="account.password" name="password" required>
-
-                                    <label></label>
-                                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-lock"></i>
-                                        Entrar
-                                    </button>
-                                </div>
-
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">rbstore</a>
             </div>
         </div>
+    </nav>
 
+    <div id="main">
 
-    </div>
-
-    <div ng-show="account.token != null">
-
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">BlueBank</a>
-                </div>
-
-
-                <button class="btn pull-right" type="button" ng-click="logout()">Sair</button>
-
-                <ul class="nav navbar-nav navbar-left">
-                    <li><a href="/"><i class="fa fa-home" ></i> Home</a></li>
-                    <li><a href="/transfer"><i class="fa fa-exchange"></i> Transferência</a></li>
-                    <li><a href="/extract"><i class="fa fa-list" ></i> Extrato</a></li>
-                    <li><a><i class="fa fa-user" aria-hidden="true"></i> CPF: {{account.cpf}} | AG: {{account.agencia}} | CC: {{account.numero}}</a></li>
-                </ul>
-
-
-            </div>
-
-
-        </nav>
-
-        <div id="main">
-
-            <div ng-view></div>
-
-        </div>
-
-        <footer class="text-center">
-            <p>BlueBank Application</a></p>
-        </footer>
+        <div ng-view/>
 
     </div>
 

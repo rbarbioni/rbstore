@@ -1,0 +1,38 @@
+<div class="jumbotron container" ng-controller="CartController">
+
+    <ul class="list-group">
+        <li class="list-group-item row" ng-repeat="c in carts track by $index">
+
+            <div class="col-md-2">
+                <img width="110" height="120" src="{{ c.image }}">
+            </div>
+
+            <div class="col-md-5">{{c.name}}</div>
+
+            <div class="col-md-2">
+                <input type="number" class="form-control input-normal" value="{{c.qtd}}" size="5" width="10" />
+            </div>
+
+            <div class="col-md-2">{{c.price}}</div>
+
+            <div class="col-md-1">
+                <button type="button" class="pull-right btn btn-danger" ng-click="remCart(c.id)" >
+                    <span class="glyphicon glyphicon-remove"/>
+                </button>
+            </div>
+
+        </li>
+
+
+        <li class="list-group-item row">
+
+            <span>Cupom Desconto</span>
+            <span>10.00</span>
+
+            <span class="pull-right">99.99</span>
+            <span class="pull-right" style="padding-right: 20px">Total</span>
+
+
+        </li>
+    </ul>
+</div>

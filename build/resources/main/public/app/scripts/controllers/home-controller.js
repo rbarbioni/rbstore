@@ -1,42 +1,33 @@
 'use strict';
 
-var app = angular.module('blueBank');
+var app = angular.module('rbstore');
 
-app.controller('HomeController', function($scope, $window, AccountFactory, $http) {
+app.controller('HomeController', function($scope, $window, $routeParams, $location, ProductFactory) {
 
+    $scope.products = ProductFactory.findAll();
 
-    $scope.account = JSON.parse($window.sessionStorage.getItem('account'));
-    $http.defaults.headers.common.Authorization = $window.sessionStorage.getItem('token');
-    AccountFactory.find(
-        {
-            cpf: $scope.account.cpf,
-            agencia: $scope.account.agencia,
-            numero: $scope.account.numero
+    $scope.getTimes=function(n){
+        return new Array(n);
+    };
 
-        }, {}, function (response) {
-            $scope.account = response;
-            $http.defaults.headers.common.Authorization = response.token;
-        }, function (error) {
-            $scope.errorMessage = error.data.message;
-    });
+    $scope.goToCarts = function () {
+        $location.path('/cart');
+    };
 
+    $scope.getCarts=function(n){
+        var _cart = $window.sessionStorage.getItem("cart");
+        if(_cart == null){
+            _cart = new Array();
+            return _cart;
+        }else{
+            _cart = JSON.parse(_cart)
+            return _cart;
+        }
+    };
 
-    $scope.logout = function () {
-        $window.sessionStorage.removeItem('account');
-        $window.location.reload();
+    $scope.goToDetail=function(p){
+        $location.path = "/product/" + p.id;
     }
 
-
 });
 
-app.factory('AccountFactory', function ($resource) {
-
-    return $resource(endpoint + '/api/account?cpf=:cpf&agencia=:agencia&numero=:numero',
-        {
-            cpf: '@cpf',
-            agencia: '@agencia',
-            numero: '@numero'
-        }, {
-        find:  { method: 'GET' }
-    });
-});

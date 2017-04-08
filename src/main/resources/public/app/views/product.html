@@ -1,0 +1,25 @@
+<div class="jumbotron container" ng-controller="ProductController">
+
+    <div class="row">
+
+        <div>
+            <div class="thumbnail">
+                <img src="{{product.image}}" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">{{product.price}}</h4>
+                    <h4><a href="#" ng-click="gotToCart(p)">{{product.name}}</a>
+                    </h4>
+                    <p>{{product.details}}</p>
+                </div>
+                <div class="ratings">
+                    <p align="center">
+                        <span ng-repeat="t in getTimes(product.ratting) track by $index" class="glyphicon glyphicon-star"></span>
+                    </p>
+                </div>
+                <div align="right">
+                    <button  class="btn btn-success" ng-click="addCart(product)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

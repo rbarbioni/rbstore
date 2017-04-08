@@ -38,8 +38,7 @@ public class ProductRepository {
         this.objectMapper = objectMapper;
     }
 
-    @PostConstruct
-    public void init(){
+    public Collection<Product> findAll(){
         try {
             InputStream inputStream = resource.getInputStream();
             Product[] products = this.objectMapper.readValue(inputStream, Product[].class);
@@ -51,9 +50,7 @@ public class ProductRepository {
         } catch (IOException e) {
             logger.error("Error initialize PROPERTIES source classpath:properties.json", e);
         }
-    }
 
-    public Collection<Product> findAll(){
         return PRODUCTS.values();
     }
 

@@ -16,6 +16,7 @@ public class Product implements Serializable {
     private final String image;
     private final String details;
     private final BigDecimal price;
+    private final Integer ratting;
 
     @JsonCreator
     public Product(
@@ -23,12 +24,13 @@ public class Product implements Serializable {
             @JsonProperty("name") String name,
             @JsonProperty("image") String image,
             @JsonProperty("details") String details,
-            @JsonProperty("price") BigDecimal price) {
+            @JsonProperty("price") BigDecimal price, @JsonProperty("ratting") Integer ratting) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.details = details;
         this.price = price;
+        this.ratting = ratting;
     }
 
     public Long getId() {
@@ -49,5 +51,9 @@ public class Product implements Serializable {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public Integer getRatting() {
+        return ratting;
     }
 }
