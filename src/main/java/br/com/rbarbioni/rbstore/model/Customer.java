@@ -1,5 +1,7 @@
 package br.com.rbarbioni.rbstore.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -12,29 +14,32 @@ public class Customer implements Serializable {
 
     private static final long serialVersionUID = -3071066428687471731L;
 
+    private final Long id;
+
     private final String name;
 
-    private final String fullName;
+    private final String fullname;
 
     private final String email;
 
-    private final Date bithDate;
+    private final Date birthdate;
 
     private final TaxDocument taxDocument;
 
     private final Phone phone;
 
     public Customer(
-            @JsonProperty String name,
-            @JsonProperty String fullName,
-            @JsonProperty String email,
-            @JsonProperty Date bithDate,
-            @JsonProperty TaxDocument taxDocument,
-            @JsonProperty Phone phone) {
+            @JsonProperty("name") String name,
+            @JsonProperty("fullname") String fullname,
+            @JsonProperty("email") String email,
+            @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") @JsonProperty("birthdate") Date birthdate,
+            @JsonProperty("taxDocument") TaxDocument taxDocument,
+            @JsonProperty("phone") Phone phone) {
+        this.id = 1L;
         this.name = name;
-        this.fullName = fullName;
+        this.fullname = fullname;
         this.email = email;
-        this.bithDate = bithDate;
+        this.birthdate = birthdate;
         this.taxDocument = taxDocument;
         this.phone = phone;
     }
@@ -43,16 +48,16 @@ public class Customer implements Serializable {
         return name;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Date getBithDate() {
-        return bithDate;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
     public TaxDocument getTaxDocument() {
@@ -61,5 +66,10 @@ public class Customer implements Serializable {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    @JsonGetter
+    public String getOwnId (){
+        return this.id.toString();
     }
 }

@@ -2,9 +2,11 @@
 
 var app = angular.module('rbstore');
 
-app.controller('ProductController', function($scope, $routeParams, $window, ProductFactory) {
+app.controller('ProductController', function($scope, $routeParams, $window, $location, ProductFactory) {
 
     $scope.product = ProductFactory.find({id: $routeParams.id});
+
+    $scope.added = false;
 
     $scope.addCart=function(p){
 
@@ -12,7 +14,7 @@ app.controller('ProductController', function($scope, $routeParams, $window, Prod
         
         if(_cart == null){
             var _cart = new Array();
-            p.qtd = 1
+            p.quantity = 1
             _cart.push(p);
             $window.sessionStorage.setItem("cart", JSON.stringify(_cart));
         }else{
@@ -22,22 +24,24 @@ app.controller('ProductController', function($scope, $routeParams, $window, Prod
             for (var i=0; i < _cart.length; i++){
                 var p1 = _cart[i];
                 if($scope.product.id == p1.id){
-                    p1.qtd = p1.qtd+1
+                    p1.quantity = p1.quantity+1
                     contains = true;
                 }
             }
 
             if(!contains){
-                p.qtd = 1;
+                p.quantity = 1;
                 _cart.push(p);
             }
 
             $window.sessionStorage.setItem("cart", JSON.stringify(_cart));
         }
+
+        $scope.added = true;
     }
 
-    $scope.remCart=function(){
-
+    $scope.goToHome=function(){
+        $window.location.assign('/');
     }
 
 });

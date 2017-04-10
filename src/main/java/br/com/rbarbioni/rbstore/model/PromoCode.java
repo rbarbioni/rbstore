@@ -20,7 +20,7 @@ public class PromoCode implements Serializable {
     private final BigDecimal discount;
 
     @JsonCreator
-    public PromoCode(@JsonProperty String name, @JsonProperty String code, @JsonProperty  BigDecimal discount) {
+    public PromoCode(@JsonProperty("name") String name, @JsonProperty("code") String code, @JsonProperty("discount") BigDecimal discount) {
         this.name = name;
         this.code = code;
         this.discount = discount;

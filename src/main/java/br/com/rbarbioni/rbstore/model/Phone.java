@@ -18,7 +18,7 @@ public class Phone implements Serializable {
 
 
     @JsonCreator
-    public Phone(@JsonProperty  String countryCode, @JsonProperty String areaCode, @JsonProperty String number) {
+    public Phone(@JsonProperty("countryCode") String countryCode, @JsonProperty("areaCode") String areaCode, @JsonProperty("number") String number) {
         this.countryCode = countryCode;
         this.areaCode = areaCode;
         this.number = number;

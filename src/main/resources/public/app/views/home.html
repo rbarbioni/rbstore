@@ -6,10 +6,10 @@
             <div class="thumbnail">
                 <img src="{{p.image}}" alt="">
                 <div class="caption">
-                    <h4 class="pull-right">{{p.price}}</h4>
+                    <h4 class="pull-right">{{p.price | currency}}</h4>
                     <h4><a ng-href="#/product/{{p.id}}" >{{p.name}}</a>
                     </h4>
-                    <p>{{p.details | limitTo:90}} ...</p>
+                    <p>{{p.detail | limitTo:90}} ...</p>
                 </div>
                 <div align="right" class="ratings">
                     <p>

@@ -34,10 +34,4 @@ public class ProductController {
     public Product findById (@PathVariable Long id){
         return this.productService.findById(id);
     }
-
-
-    @RequestMapping(value = "/checkout", method = {RequestMethod.POST})
-    public void checkout (){
-        return;
-    }
 }

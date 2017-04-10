@@ -17,7 +17,7 @@ public class TaxDocument implements Serializable {
     private final String number;
 
     @JsonCreator
-    public TaxDocument(@JsonProperty String number, @JsonProperty DocumentType type) {
+    public TaxDocument(@JsonProperty("number") String number, @JsonProperty("type") DocumentType type) {
         this.number = number;
         this.type = type;
     }
