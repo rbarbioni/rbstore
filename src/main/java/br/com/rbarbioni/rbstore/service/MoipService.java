@@ -30,7 +30,7 @@ public class MoipService {
     private final String authorization;
 
     @Autowired
-    public MoipService(ObjectMapper objectMapper, @Value("${authorization}") String authorization) {
+    public MoipService(ObjectMapper objectMapper, @Value("${security.moip.authorization}") String authorization) {
         this.objectMapper = objectMapper;
         this.authorization = authorization;
     }
@@ -39,13 +39,13 @@ public class MoipService {
         return this.post(PAYMENT_URL.replace("{id}", orderId), body, Map.class);
     }
 
-    public Map<String, Object> requestOrder (String body) throws IOException {
+    public Map<String, Object> requestOrder (Object body) throws IOException {
         return this.post(ORDER_URL, body, Map.class);
     }
 
-    private <T> T post (final String url, final Object requestBody, final Class<T> responseBody) throws IOException {
+    private <T> T post (final String url, final Object body, final Class<T> responseBody) throws IOException {
 
-        HttpEntity<T> request = new HttpEntity(requestBody, getHeadersWithAuthorization());
+        HttpEntity<T> request = new HttpEntity(body, getHeadersWithAuthorization());
         ResponseEntity<String> responseEntity = new RestTemplate().exchange(url, HttpMethod.POST, request, String.class);
         if(responseEntity.getStatusCodeValue() >= 200 && responseEntity.getStatusCodeValue() <= 299){
             return this.objectMapper.readValue(responseEntity.getBody(), responseBody);

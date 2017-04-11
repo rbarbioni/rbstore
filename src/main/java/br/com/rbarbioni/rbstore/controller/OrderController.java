@@ -1,7 +1,5 @@
 package br.com.rbarbioni.rbstore.controller;
 
-import br.com.rbarbioni.rbstore.model.CheckoutDiscount;
-import br.com.rbarbioni.rbstore.model.OrderRequest;
 import br.com.rbarbioni.rbstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +23,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @RequestMapping(value = "/calc", method = {RequestMethod.POST})
-    public CheckoutDiscount checkout (@Valid @RequestBody OrderRequest orderRequest){
-        return this.orderService.calc(orderRequest);
-    }
 
     @RequestMapping(method = {RequestMethod.POST})
     public Map<String, Object> order (@Valid @RequestBody String body) throws IOException {
