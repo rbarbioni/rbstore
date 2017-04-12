@@ -2,6 +2,7 @@ package br.com.rbarbioni.rbstore.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -22,6 +23,8 @@ public class Customer implements Serializable {
 
     private final String email;
 
+    private final String password;
+
     private final Date birthdate;
 
     private final TaxDocument taxDocument;
@@ -32,11 +35,13 @@ public class Customer implements Serializable {
             @JsonProperty("name") String name,
             @JsonProperty("fullname") String fullname,
             @JsonProperty("email") String email,
+            @JsonProperty("password") String password,
             @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") @JsonProperty("birthdate") Date birthdate,
             @JsonProperty("taxDocument") TaxDocument taxDocument,
             @JsonProperty("phone") Phone phone) {
         this.id = 1L;
         this.name = name;
+        this.password = password;
         this.fullname = fullname;
         this.email = email;
         this.birthdate = birthdate;
@@ -66,6 +71,16 @@ public class Customer implements Serializable {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
     }
 
     @JsonGetter

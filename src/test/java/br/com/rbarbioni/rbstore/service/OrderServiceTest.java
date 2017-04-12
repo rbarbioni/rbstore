@@ -37,6 +37,7 @@ public class OrderServiceTest {
             "João",
             "João Portador da Silva",
             "joaosilva@email.com",
+            "testemoip",
             new Date(),
             new TaxDocument("12345679891", DocumentType.CPF),
             new Phone("55","11", "66778899")
