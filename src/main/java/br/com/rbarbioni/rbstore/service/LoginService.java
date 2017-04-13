@@ -33,15 +33,20 @@ public class LoginService {
 
     public Map<String, Object> login (Login login) throws JsonProcessingException {
 
-        Customer customer = this.customerService.findByEmail(login.getEmail());
-
-        if(customer == null || !login.getPassword().equals(customer.getPassword())){
-            throw new BusinessException(HttpStatus.UNAUTHORIZED.value(), LOGIN_ERROR);
-        }
-
+        Customer customer = auth(login.getEmail(), login.getPassword());
         Map<String, Object> map = new HashMap();
         map.put("token", this.jwtService.encode(customer));
         map.put("customer", customer);
         return map;
+    }
+
+    public Customer auth (String email, String password) throws JsonProcessingException {
+        Customer customer = this.customerService.findByEmail(email);
+
+        if(customer == null || !password.equals(customer.getPassword())){
+            throw new BusinessException(HttpStatus.UNAUTHORIZED.value(), LOGIN_ERROR);
+        }
+
+        return customer;
     }
 }

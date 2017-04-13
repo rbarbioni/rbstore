@@ -1,0 +1,120 @@
+<div class="jumbotron container" ng-controller="CartController">
+
+    <ul class="list-group">
+        <label>Produtos</label>
+        <li class="list-group-item row" ng-repeat="c in carts track by $index">
+
+            <div class="col-md-2">
+                <img width="48" height="48" src="{{ c.image }}" ng-href="#/product/{{c.id}}">
+            </div>
+
+            <div class="col-md-5">
+                <a ng-href="#/product/{{c.id}}" >{{c.name}}</a>
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" class="form-control" ng-model="c.quantity" ng-change="calc()" value="{{c.quantity}}" size="5" width="10"/>
+            </div>
+
+            <div class="col-md-2">{{c.price | currency}}</div>
+
+            <div class="col-md-1">
+                <button type="button" class="pull-right btn btn-danger" ng-click="remCart(c.id)">
+                    <span class="glyphicon glyphicon-remove"/>
+                </button>
+            </div>
+
+        </li>
+    </ul>
+
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Cupom</label>
+            <input class="form-control" ng-change="calc()" name="{{order.code}}" ng-model="order.code" type="text" placeholder="Cupom Promocional" width="10" size="10" ng-maxlength="25">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label>Pagamento</label>
+        <div class="form-inline">
+
+            <div class="col-md-4">
+                <input class="form-control" name="{{order.code}}" ng-model="order.code" type="text" placeholder="Numero Cartão Crédito" ng-maxlength="25">
+            </div>
+
+            <div class="col-md-2">
+                <select class="form-control" placeholder="Mês Vencimento" class="form-control" data-show-icon="true" ng-model="order.fundingInstrument.creditCard.expirationMonth">
+                    <option value="" selected disabled>Mês Vencimento</option>
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select placeholder="Ano Vencimento" class="form-control" data-show-icon="true" ng-model="order.fundingInstrument.creditCard.expirationYear">
+                    <option value="" selected disabled>Ano Vencimento</option>
+                    <option value="17">2017</option>
+                    <option value="18">2018</option>
+                    <option value="19">2019</option>
+                    <option value="20">2020</option>
+                    <option value="21">2021</option>
+                    <option value="22">2022</option>
+                    <option value="23">2023</option>
+                    <option value="24">2024</option>
+                    <option value="25">2025</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select placeholder="Parcelas" class="form-control" data-show-icon="true" ng-change="calc()" ng-model="order.installmentCount">
+                    <option value="" selected disabled>Parcelas</option>
+                    <option value="1">1x</option>
+                    <option value="2">2x</option>
+                    <option value="3">3x</option>
+                    <option value="4">4x</option>
+                    <option value="5">5x</option>
+                    <option value="6">6x</option>
+                    <option value="7">7x</option>
+                    <option value="8">8x</option>
+                    <option value="9">9x</option>
+                    <option value="10">10x</option>
+                    <option value="11">11x</option>
+                    <option value="12">12x</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <input class="form-control" name="{{order.code}}" ng-model="order.code" type="text" laceholder="Código Segurança" ng-maxlength="25">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row pull-right">
+
+
+        <div class="">
+            <span class="" style="padding-right: 20px">Desconto</span>
+            <span class="">{{order.discount | currency}}</span>
+        </div>
+
+        <div class="">
+            <span class="" style="padding-right: 20px">Total  </span>
+            <span class="">{{order.amount | currency}}</span>
+        </div>
+
+        <button class="pull-right btn btn-success" ng-click="requestOrder()">Fechar Pedido</button>
+
+    </div>
+</div>
