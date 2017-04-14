@@ -5,7 +5,6 @@ var app = angular.module('rbstore');
 app.controller('CartController', function ($scope, $window, $location, $cookieStore, OrderCalculatorFactory, OrderFactory, LoginFactory, CartService) {
 
     $scope.carts = CartService.carts();
-    $scope.customer = JSON.parse($window.sessionStorage.getItem("customer"));
     $scope.order = {};
     $scope.order.items = new Array();
     $scope.order.items = $scope.carts;
@@ -35,6 +34,7 @@ app.controller('CartController', function ($scope, $window, $location, $cookieSt
             function (result) {
                 console.log(result);
                 $scope.customer = result.customer;
+                $window.sessionStorage.customer = JSON.stringify(result.customer);
                 $cookieStore.put('token',result.token);
                 $window.location.assign('#/order');
             },
@@ -52,7 +52,7 @@ app.controller('CartController', function ($scope, $window, $location, $cookieSt
         var order ={}
         order.ownId = $scope.order.ownId;
         order.items = $scope.order.items;
-        order.customer = $scope.order.customer;
+        $scope.order.customer = $scope.customer;
 
         OrderFactory.order({}, order, function (result) {
 

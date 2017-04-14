@@ -26,6 +26,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/order', {
             templateUrl : 'app/views/order.html'
         })
+        .when('/status/:id', {
+            templateUrl : 'app/views/status.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

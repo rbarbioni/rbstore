@@ -37,7 +37,7 @@ app.factory('OrderFactory', function ($resource, $cookieStore) {
 
 app.factory('OrderPaymentFactory', function ($resource, $cookieStore) {
 
-    return $resource(endpoint + '/api/order/:{id}/payment',
+    return $resource(endpoint + '/api/order/:id/payment',
         {
             id: '@id'
         },

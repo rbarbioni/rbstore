@@ -21,6 +21,9 @@ import java.util.Map;
 @Service
 public class MoipService {
 
+
+    private static final String PAYMENT_STATUS_URL = "https://sandbox.moip.com.br/v2/payments/{id}";
+
     private static final String CUSTOMER_URL = "https://sandbox.moip.com.br/v2/customers/{id}";
 
     private static final String ORDER_URL = "https://sandbox.moip.com.br/v2/orders";
@@ -35,6 +38,10 @@ public class MoipService {
     public MoipService(ObjectMapper objectMapper, @Value("${security.moip.authorization}") String authorization) {
         this.objectMapper = objectMapper;
         this.authorization = authorization;
+    }
+
+    public Map<String, Object> findStatus(String moipId) throws IOException {
+        return this.execute(PAYMENT_STATUS_URL.replace("{id}", moipId), HttpMethod.GET, null, Map.class);
     }
 
     public Map<String, Object> findCustomer(String moipId) throws IOException {
