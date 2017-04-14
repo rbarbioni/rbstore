@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by renan on 08/04/17.
  */
-public class CheckoutDiscount implements Serializable {
+public class PreOrderResponse implements Serializable {
 
     private static final long serialVersionUID = -8589128874575784500L;
 
@@ -20,8 +20,14 @@ public class CheckoutDiscount implements Serializable {
 
     private final BigDecimal discount;
 
+    private final BigDecimal addition;
+
     @JsonCreator
-    public CheckoutDiscount(@JsonProperty("amount") BigDecimal amount, @JsonProperty("discount") BigDecimal discount) {
+    public PreOrderResponse(
+            @JsonProperty("amount") BigDecimal amount,
+            @JsonProperty("discount") BigDecimal discount,
+            @JsonProperty("addition") BigDecimal addition) {
+        this.addition = addition;
         this.ownId = UUID.randomUUID().toString();
         this.amount = amount;
         this.discount = discount;
@@ -37,5 +43,9 @@ public class CheckoutDiscount implements Serializable {
 
     public String getOwnId() {
         return ownId;
+    }
+
+    public BigDecimal getAddition() {
+        return addition;
     }
 }

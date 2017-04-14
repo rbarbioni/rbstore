@@ -23,6 +23,9 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/cart', {
             templateUrl : 'app/views/cart.html'
         })
+        .when('/order', {
+            templateUrl : 'app/views/order.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

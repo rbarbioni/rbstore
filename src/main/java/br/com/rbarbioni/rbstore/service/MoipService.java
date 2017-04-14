@@ -21,6 +21,8 @@ import java.util.Map;
 @Service
 public class MoipService {
 
+    private static final String CUSTOMER_URL = "https://sandbox.moip.com.br/v2/customers/{id}";
+
     private static final String ORDER_URL = "https://sandbox.moip.com.br/v2/orders";
 
     private static final String PAYMENT_URL = "https://sandbox.moip.com.br/v2/orders/{id}/payments";
@@ -35,24 +37,32 @@ public class MoipService {
         this.authorization = authorization;
     }
 
+    public Map<String, Object> findCustomer(String moipId) throws IOException {
+        return this.execute(CUSTOMER_URL.replace("{id}", moipId), HttpMethod.GET, null, Map.class);
+    }
+
     public Map<String, Object> requestPaymnent(String orderId, String body) throws IOException {
-        return this.post(PAYMENT_URL.replace("{id}", orderId), body, Map.class);
+        return this.execute(PAYMENT_URL.replace("{id}",  orderId), HttpMethod.POST, body, Map.class);
     }
 
     public Map<String, Object> requestOrder (Object body) throws IOException {
-        return this.post(ORDER_URL, body, Map.class);
+        return this.execute(ORDER_URL, HttpMethod.POST, body, Map.class);
     }
 
-    private <T> T post (final String url, final Object body, final Class<T> responseBody) throws IOException {
+    private <T> T execute (final String url, final HttpMethod httpMethod, final Object body, final Class<T> responseBody) throws IOException {
 
-        HttpEntity<T> request = new HttpEntity(body, getHeadersWithAuthorization());
-        ResponseEntity<String> responseEntity = new RestTemplate().exchange(url, HttpMethod.POST, request, String.class);
+        HttpEntity<T> request = new HttpEntity(getHeadersWithAuthorization());
+
+        if (body != null) {
+            request = new HttpEntity(body, getHeadersWithAuthorization());
+        }
+
+        ResponseEntity<String> responseEntity = new RestTemplate().exchange(url, httpMethod, request, String.class);
         if(responseEntity.getStatusCodeValue() >= 200 && responseEntity.getStatusCodeValue() <= 299){
             return this.objectMapper.readValue(responseEntity.getBody(), responseBody);
         }
 
         throw new BusinessException(responseEntity.getStatusCodeValue(), this.objectMapper.writeValueAsString(responseEntity.getBody()));
-
     }
 
     private HttpHeaders getHeadersWithAuthorization(){

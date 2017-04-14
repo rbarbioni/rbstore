@@ -1,7 +1,18 @@
+function Order() {
 
-var store =
-    {
-        "agencia_destino": "1500",
-        "agencia_origem": "1500",
-        "codigo_banco_destino": 237,
-    }
+    var order =
+        {
+            ownId: '',
+            amount: {
+                currency: 'BRL',
+                subtotals: {
+                    shipping: 0,
+                    addition: 0,
+                    discount: 0
+                }
+            },
+            items: [],
+            customer: {}
+        };
+    return order;
+}

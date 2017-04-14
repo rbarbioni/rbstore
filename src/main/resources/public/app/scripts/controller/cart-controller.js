@@ -2,36 +2,49 @@
 
 var app = angular.module('rbstore');
 
-app.controller('CartController', function ($scope, $window, OrderCalcFactory, OrderFactory, CustomerFactory) {
+app.controller('CartController', function ($scope, $window, $location, $cookieStore, OrderCalculatorFactory, OrderFactory, LoginFactory, CartService) {
 
-
-    $scope.carts = JSON.parse($window.sessionStorage.getItem("cart"));
-
+    $scope.carts = CartService.carts();
+    $scope.customer = JSON.parse($window.sessionStorage.getItem("customer"));
     $scope.order = {};
     $scope.order.items = new Array();
     $scope.order.items = $scope.carts;
+    $scope.order.installmentCount=1;
     $scope.order.fundingInstrument = []
     $scope.order.fundingInstrument.method = 'method';
-    $scope.order.customer = CustomerFactory.find({email: 'joaosilva@email.com'})
 
     calc();
+
     $scope.remCart = function (id) {
+        $scope.carts = CartService.rem(id);
+    }
 
-        for (var i = 0; i < $scope.carts.length; i++) {
-            var p = $scope.carts[i];
-            if (id == p.id) {
-                $scope.carts.splice(i, 1);
-            }
-        }
-
-        $window.sessionStorage.setItem("cart", JSON.stringify($scope.carts));
-        
-        $scope.order.products = $scope.carts;
-        calc();
+    function calc() {
+        CartService.update($scope.carts);
+        $scope.order.amount =  CartService.calc();
     }
 
     $scope.calc = function () {
         calc();
+    }
+
+    $scope.login = function () {
+
+        LoginFactory.login({}, {email: "joaosilva@email.com", password: "testemoip"},
+
+            function (result) {
+                console.log(result);
+                $scope.customer = result.customer;
+                $cookieStore.put('token',result.token);
+                $window.location.assign('#/order');
+            },
+
+            function (error) {
+                console.log(error);
+                $scope.errors = error;
+            }
+        );
+
     }
 
     $scope.requestOrder = function () {
@@ -49,16 +62,5 @@ app.controller('CartController', function ($scope, $window, OrderCalcFactory, Or
             console.log(error);
         })
     }
-
-    function calc() {
-        OrderCalcFactory.calc({}, $scope.order, function (result) {
-            $window.sessionStorage.setItem("cart", JSON.stringify($scope.carts));
-            $scope.order.amount = result.amount
-            $scope.order.discount = result.discount;
-            $scope.order.ownId = result.ownId;
-        });
-
-    }
-
 });
 

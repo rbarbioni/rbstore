@@ -1,9 +1,6 @@
 package br.com.rbarbioni.rbstore.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,60 +14,30 @@ public class Customer implements Serializable {
 
     private final Long id;
 
-    private final String name;
-
-    private final String fullname;
-
     private final String email;
 
     private final String password;
 
-    private final Date birthdate;
+    private final String paymentId;
 
-    private final TaxDocument taxDocument;
-
-    private final Phone phone;
-
+    @JsonCreator
     public Customer(
-            @JsonProperty("name") String name,
-            @JsonProperty("fullname") String fullname,
             @JsonProperty("email") String email,
             @JsonProperty("password") String password,
-            @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd") @JsonProperty("birthdate") Date birthdate,
-            @JsonProperty("taxDocument") TaxDocument taxDocument,
-            @JsonProperty("phone") Phone phone) {
+            @JsonProperty("paymentId") String paymentId) {
+
         this.id = 1L;
-        this.name = name;
-        this.password = password;
-        this.fullname = fullname;
         this.email = email;
-        this.birthdate = birthdate;
-        this.taxDocument = taxDocument;
-        this.phone = phone;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFullname() {
-        return fullname;
+        this.password = password;
+        this.paymentId = paymentId;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public TaxDocument getTaxDocument() {
-        return taxDocument;
-    }
-
-    public Phone getPhone() {
-        return phone;
+    public String getPaymentId() {
+        return paymentId;
     }
 
     @JsonIgnore

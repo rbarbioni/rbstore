@@ -1,8 +1,7 @@
 package br.com.rbarbioni.rbstore.controller;
 
-import br.com.rbarbioni.rbstore.model.Login;
+import br.com.rbarbioni.rbstore.model.Customer;
 import br.com.rbarbioni.rbstore.service.LoginService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     @RequestMapping(method = {RequestMethod.POST})
-    public Map<String, Object> login (@Valid @RequestBody Login login) throws JsonProcessingException {
-        return loginService.login(login);
+    public Map<String, Object> login (@Valid @RequestBody Customer customer) throws IOException {
+        return loginService.login(customer);
     }
 }

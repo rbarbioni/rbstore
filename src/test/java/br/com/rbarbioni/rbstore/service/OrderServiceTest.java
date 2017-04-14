@@ -16,7 +16,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by renan on 08/04/17.
@@ -33,16 +32,7 @@ public class OrderServiceTest {
     @Mock
     private PromoCodeService promoCodeService;
 
-    private Customer customer = new Customer(
-            "João",
-            "João Portador da Silva",
-            "joaosilva@email.com",
-            "testemoip",
-            new Date(),
-            new TaxDocument("12345679891", DocumentType.CPF),
-            new Phone("55","11", "66778899")
-
-    );
+    private Customer customer = new Customer("joaosilva@email.com", "testemoip", "CUS-12345678901");
 
     @Before
     public void before(){
@@ -55,10 +45,10 @@ public class OrderServiceTest {
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(new PromoCode("Promo 1", "11231223", BigDecimal.valueOf(0.05)));
 
         Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        OrderRequest orderRequest = new OrderRequest(Arrays.asList(product), "", 1, customer);
-        CheckoutDiscount checkoutDiscount = orderService.calc(orderRequest);
-        Assert.assertTrue(92.625 == checkoutDiscount.getAmount().doubleValue());
-        Assert.assertTrue((100.00-92.625) == checkoutDiscount.getDiscount().doubleValue() );
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
+        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
+        Assert.assertTrue(92.625 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue((100.00-92.625) == preOrderResponse.getDiscount().doubleValue() );
     }
 
     @Test
@@ -67,20 +57,20 @@ public class OrderServiceTest {
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(new PromoCode("Promo 1", "11231223", BigDecimal.valueOf(0.05)));
 
         Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        OrderRequest orderRequest = new OrderRequest(Arrays.asList(product), "", 1, customer);
-        CheckoutDiscount checkoutDiscount = orderService.calc(orderRequest);
-        Assert.assertTrue(95.00 == checkoutDiscount.getAmount().doubleValue());
-        Assert.assertTrue((100.00-95.00) == checkoutDiscount.getDiscount().doubleValue());
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
+        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
+        Assert.assertTrue(95.00 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue((100.00-95.00) == preOrderResponse.getDiscount().doubleValue());
     }
 
     @Test
     public void calcApplyingInstallmentCountTest(){
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
         Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        OrderRequest orderRequest = new OrderRequest(Arrays.asList(product), "", 1, customer);
-        CheckoutDiscount checkoutDiscount = orderService.calc(orderRequest);
-        Assert.assertTrue(97.50 == checkoutDiscount.getAmount().doubleValue());
-        Assert.assertTrue((100.00-97.50) == checkoutDiscount.getDiscount().doubleValue());
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
+        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
+        Assert.assertTrue(97.50 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue((100.00-97.50) == preOrderResponse.getDiscount().doubleValue());
     }
 
     @Test
@@ -88,10 +78,10 @@ public class OrderServiceTest {
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
         ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
         Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        OrderRequest orderRequest = new OrderRequest(Arrays.asList(product), "", 1, customer);
-        CheckoutDiscount checkoutDiscount = orderService.calc(orderRequest);
-        Assert.assertTrue(100.00 == checkoutDiscount.getAmount().doubleValue());
-        Assert.assertTrue(0.0 == checkoutDiscount.getDiscount().doubleValue());
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
+        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
+        Assert.assertTrue(100.00 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue(0.0 == preOrderResponse.getDiscount().doubleValue());
     }
 
     @Test
@@ -100,9 +90,9 @@ public class OrderServiceTest {
         ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
         Product product1 = new Product(1L, "", "", "", BigDecimal.valueOf(150), 1, 2);
         Product product2 = new Product(1L, "", "", "", BigDecimal.valueOf(150), 1, 3);
-        OrderRequest orderRequest = new OrderRequest(Arrays.asList(product1, product2), "", 1, customer);
-        CheckoutDiscount checkoutDiscount = orderService.calc(orderRequest);
-        Assert.assertTrue(750.00 == checkoutDiscount.getAmount().doubleValue());
-        Assert.assertTrue(0.0 == checkoutDiscount.getDiscount().doubleValue());
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product1, product2), "", 1, customer);
+        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
+        Assert.assertTrue(750.00 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue(0.0 == preOrderResponse.getDiscount().doubleValue());
     }
 }

@@ -2,29 +2,40 @@
 
 var app = angular.module('rbstore');
 
-app.factory('OrderCalcFactory', function ($resource) {
 
-    return $resource(endpoint + '/api/order/calc',
+app.factory('OrderCalculatorFactory', function ($resource, $cookieStore) {
+
+    return $resource(endpoint + '/api/order/calculator',
         {},
 
         {
-            calc: {method: 'POST'}
+            calculator: {
+                method: 'POST',
+                headers: {
+                    'Authorization':  $cookieStore.get('token')
+                }
+            }
         }
     );
 });
 
-app.factory('OrderFactory', function ($resource) {
+app.factory('OrderFactory', function ($resource, $cookieStore) {
 
     return $resource(endpoint + '/api/order',
         {},
 
         {
-            order: {method: 'POST'}
+            order: {
+                method: 'POST',
+                headers: {
+                    'authorization':  $cookieStore.get('token')
+                }
+            }
         }
     );
 });
 
-app.factory('OrderPaymentFactory', function ($resource) {
+app.factory('OrderPaymentFactory', function ($resource, $cookieStore) {
 
     return $resource(endpoint + '/api/order/:{id}/payment',
         {
@@ -32,7 +43,15 @@ app.factory('OrderPaymentFactory', function ($resource) {
         },
 
         {
-            find: {method: 'GET', params: { id: '@id' }}
+            payment: {
+                method: 'POST',
+                headers: {
+                    'Authorization':  $cookieStore.get('token')
+                },
+                params: {
+                    id: '@id',
+                }
+            }
         }
     );
 });

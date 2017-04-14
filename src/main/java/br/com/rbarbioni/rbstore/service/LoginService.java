@@ -2,13 +2,13 @@ package br.com.rbarbioni.rbstore.service;
 
 import br.com.rbarbioni.rbstore.exception.BusinessException;
 import br.com.rbarbioni.rbstore.model.Customer;
-import br.com.rbarbioni.rbstore.model.Login;
 import br.com.rbarbioni.rbstore.security.JWTService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,12 +31,12 @@ public class LoginService {
         this.jwtService = jwtService;
     }
 
-    public Map<String, Object> login (Login login) throws JsonProcessingException {
+    public Map<String, Object> login (Customer customer) throws IOException {
 
-        Customer customer = auth(login.getEmail(), login.getPassword());
+        customer = auth(customer.getEmail(), customer.getPassword());
         Map<String, Object> map = new HashMap();
         map.put("token", this.jwtService.encode(customer));
-        map.put("customer", customer);
+        map.put("customer", this.customerService.findCustomer(customer.getPaymentId()));
         return map;
     }
 

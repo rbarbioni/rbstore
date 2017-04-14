@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * Created by renan on 08/04/17.
  */
-public class OrderRequest implements Serializable {
+public class PreOrderRequest implements Serializable {
 
     private static final long serialVersionUID = -2481459967132385278L;
 
@@ -24,7 +24,7 @@ public class OrderRequest implements Serializable {
     private final Customer customer;
 
     @JsonCreator
-    public OrderRequest(
+    public PreOrderRequest(
             @JsonProperty("items") Collection<Product> products,
             @JsonProperty("code") String code,
             @JsonProperty("installmentCount") Integer installmentCount,
@@ -53,14 +53,18 @@ public class OrderRequest implements Serializable {
         return customer;
     }
 
-    public BigDecimal getAmmount(){
-        BigDecimal ammount = BigDecimal.ZERO;
+    public BigDecimal getAmount(){
+        BigDecimal amount = BigDecimal.ZERO;
         for (Product product : products) {
-            ammount = ammount.add(product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())));
+            amount = amount.add(product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())));
         }
-        return ammount;
+        return amount;
     }
-    public BigDecimal applyDiscount(BigDecimal ammount , BigDecimal discount){
-        return ammount.subtract(ammount.multiply(discount));
+    public BigDecimal applyDiscount(BigDecimal amount , BigDecimal discount){
+        return amount.multiply(discount);
+    }
+
+    public BigDecimal applyAdditional(BigDecimal amount , BigDecimal additional){
+        return amount.multiply(additional);
     }
 }
