@@ -6,7 +6,7 @@ app.service('CartService', function ($window) {
 
     this.add = function (p) {
 
-        var _cart = getCarts();
+        var _cart = getCart();
 
         if(_cart == null){
             var _cart = new Array();
@@ -42,7 +42,7 @@ app.service('CartService', function ($window) {
 
     this.rem = function (id) {
 
-        var _cart = getCarts();
+        var _cart = getCart();
 
         for (var i = 0; i < _cart.length; i++) {
             var p = _cart[i];
@@ -57,7 +57,10 @@ app.service('CartService', function ($window) {
 
     function calc() {
         var amount = 0;
-        var _cart = getCarts();
+        var _cart = getCart();
+        if(_cart == null){
+            return 0;
+        }
         for (var i = 0; i < _cart.length; i++) {
             var cart = _cart[i];
             amount +=  ((!isNaN(cart.price) ? cart.price : 0 ) * cart.quantity);
@@ -70,11 +73,11 @@ app.service('CartService', function ($window) {
         return calc();
     }
 
-    this.carts = function () {
-        return getCarts();
+    this.getCart = function () {
+        return getCart();
     }
 
-    function getCarts() {
+    function getCart() {
         return JSON.parse($window.sessionStorage.getItem("cart"));
     }
 

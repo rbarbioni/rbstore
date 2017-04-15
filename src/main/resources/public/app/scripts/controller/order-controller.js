@@ -5,9 +5,9 @@ var app = angular.module('rbstore');
 app.controller('OrderController', function ($scope, $window, $location, OrderCalculatorFactory, OrderFactory, OrderPaymentFactory, LoginFactory, CartService) {
 
     var publicKey = '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBttaXwRoI1Fbcond5mS7QOb7X2lykY5hvvDeLJelvFhpeLnS4YDwkrnziM3W00UNH1yiSDU+3JhfHu5G387O6uN9rIHXvL+TRzkVfa5iIjG+ap2N0/toPzy5ekpgxBicjtyPHEgoU6dRzdszEF4ItimGk5ACx/lMOvctncS5j3uWBaTPwyn0hshmtDwClf6dEZgQvm/dNaIkxHKV+9jMn3ZfK/liT8A3xwaVvRzzuxf09xJTXrAd9v5VQbeWGxwFcW05oJulSFjmJA9HcmbDYHJT+sG2mlZDEruCGAzCVubJwGY1aRlcs9AQc1jIm/l8JwH7le2kpk3QoX+gz0wWwIDAQAB-----END PUBLIC KEY-----';
-    $scope.carts = CartService.carts();
+    $scope.cart = CartService.getCart();
     $scope.order = new Order();
-    $scope.order.items = $scope.carts;
+    $scope.order.items = $scope.cart;
     $scope.order.customer = JSON.parse($window.sessionStorage.getItem("customer"));
     $scope.payment = new Payment();
 
@@ -23,7 +23,7 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
     calc();
 
     $scope.remCart = function (id) {
-        $scope.carts = CartService.rem(id);
+        $scope.cart = CartService.rem(id);
     }
 
     $scope.calc = function () {
@@ -81,8 +81,8 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
 
         var items = new Array();
 
-        for (var i = 0; i < $scope.carts.length; i++) {
-            var cart = angular.copy($scope.carts[i]);
+        for (var i = 0; i < $scope.cart.length; i++) {
+            var cart = angular.copy($scope.cart[i]);
             cart.price = Number((cart.price).toString().split(".").join(""))
             items.push(cart)
         }

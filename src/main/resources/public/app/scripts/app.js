@@ -30,6 +30,10 @@ app.config(function($routeProvider, $locationProvider) {
         .when('/status/:id', {
             templateUrl : 'app/views/status.html'
         })
+        .when('/login', {
+            templateUrl : 'app/views/login.html'
+        })
+
         .otherwise({
             redirectTo: '/'
         });

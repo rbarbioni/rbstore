@@ -3,15 +3,26 @@
     <div class="row">
 
         <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="p in products">
+
             <div class="thumbnail">
-                <img src="{{p.image}}" alt="">
-                <div class="caption">
-                    <h4 class="pull-right">{{p.price | currency:''}}</h4>
-                    <h4><a ng-href="#/product/{{p.id}}" >{{p.name}}</a>
-                    </h4>
-                    <div>{{p.detail | limitTo:90}} ...</div>
+
+                <div align="center">
+                    <a ng-href="#/product/{{p.id}}" >
+                        <img src="{{p.image}}" ng-href="#/product/{{p.id}}">
+                    </a>
                 </div>
-                <div align="right" class="ratings">
+
+
+                <div class="caption">
+
+                    <h4 class="pull-right">{{p.price | currency:''}}</h4>
+
+                    <h4>
+                        <a ng-href="#/product/{{p.id}}" >{{p.name}}</a>
+                    </h4>
+
+                </div>
+                <div align="center" class="ratings">
                     <p>
                         <span ng-repeat="t in getTimes(p.ratting) track by $index" class="glyphicon glyphicon-star"></span>
                     </p>

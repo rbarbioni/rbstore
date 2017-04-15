@@ -14,13 +14,22 @@ app.controller('HomeController', function($scope, $window, $routeParams, $locati
         $location.path('/cart');
     };
 
-    $scope.getCarts=function(){
-        return CartService.carts();
+    $scope.getCart=function(){
+        return CartService.getCart();
     };
 
     $scope.goToDetail=function(p){
         $location.path = "/product/" + p.id;
     }
+
+    $scope.getName = function () {
+        var customer = $window.sessionStorage.customer;
+        if(customer != null && customer != undefined){
+            customer = JSON.parse(customer);
+            return 'Olá ' + customer.fullname;
+        }
+        return '';
+    };
 
 });
 

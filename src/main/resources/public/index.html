@@ -29,6 +29,7 @@
 
     <script src="app/scripts/app.js"></script>
 
+    <script src="app/scripts/controller/login-controller.js"></script>
     <script src="app/scripts/controller/home-controller.js"></script>
     <script src="app/scripts/controller/cart-controller.js"></script>
     <script src="app/scripts/controller/product-controller.js"></script>
@@ -54,13 +55,17 @@
 
         <a class="navbar-brand navbar-right col-sm-3" ng-href="#/cart">
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-            <span class="badge">{{getCarts().length}}</span></a>
+            <span class="badge">{{getCart().length}}</span></a>
         </a>
 
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">rbstore</a>
+                <a class="navbar-brand" href="/">RBStore</a>
+                <span class="navbar-brand" href="/">{{getName()}}</span>
+
             </div>
+
+
         </div>
     </nav>
 
