@@ -2,12 +2,15 @@
 
 var app = angular.module('rbstore');
 
-app.controller('PaymentStatusController', function ($scope, $window, $routeParams, $cookieStore, PaymentFactory, SocketFactory) {
+app.controller('PaymentStatusController', function ($scope, $window, $routeParams, $interval, PaymentFactory, SocketFactory) {
 
     $scope.inAnalysis = false;
     $scope.preAuthorized = false;
     $scope.authorized = false;
     $scope.noAuthorized = false;
+
+    // Paleativo caso o WebHook não funcione!
+    var call = $interval(find, 5000);
 
     SocketFactory.socket( '/topic/app/payment/' + $routeParams.id +'/updates', function( message ){
         console.log(message);
@@ -43,28 +46,34 @@ app.controller('PaymentStatusController', function ($scope, $window, $routeParam
 
         if(type == 'PAYMENT.AUTHORIZED'){
             $scope.authorized = true;
+            $interval.cancel(call);
         }
 
         if(type == 'PAYMENT.CANCELLED' || type == 'PAYMENT.REFUNDED' || type == 'PAYMENT.REVERSED' || type == 'PAYMENT.SETTLED'){
             $scope.noAuthorized = true;
+            $interval.cancel(call);
         }
     }
 
-    PaymentFactory.find({id: $routeParams.id},
-        function (result) {
+    function find() {
+        PaymentFactory.find({id: $routeParams.id},
+            function (result) {
 
-            $scope.inAnalysis = false;
-            $scope.preAuthorized = false;
-            $scope.authorized = false;
-            $scope.noAuthorized = false;
-            
-            for (var i=0; i < result.events.length; i++) {
-                var e = result.events[i];
-                processEvent(e.type);
+                $scope.inAnalysis = false;
+                $scope.preAuthorized = false;
+                $scope.authorized = false;
+                $scope.noAuthorized = false;
+
+                for (var i=0; i < result.events.length; i++) {
+                    var e = result.events[i];
+                    processEvent(e.type);
+                }
+            },
+            function (error) {
+                console.log(error);
             }
-        },
-        function (error) {
-            console.log(error);
-        }
-    );
+        );
+    }
+
+
 });
