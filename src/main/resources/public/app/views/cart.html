@@ -95,62 +95,74 @@
 
     </style>
 
-    <ul class="list-group">
-        <label>Produtos</label>
-        <li class="list-group-item row" ng-repeat="c in carts track by $index">
-
-            <div class="col-md-2">
-                <img width="48" height="48" src="{{ c.image }}" ng-href="#/product/{{c.id}}">
+    <div ng-if="carts.length == 0">
+        <ul class="list-group">
+            <div align="center">
+                <h1>Carrinho Vazio</h1>
+                <h1>:(</h1>
             </div>
-
-            <div class="col-md-5">
-                <a ng-href="#/product/{{c.id}}" >{{c.name}}</a>
-            </div>
-
-            <div class="col-md-2">
-                <input type="number" class="form-control" ng-model="c.quantity" ng-change="calc()" value="{{c.quantity}}" size="5" width="10"/>
-            </div>
-
-            <div class="col-md-2">{{c.price | currency}}</div>
-
-            <div class="col-md-1">
-                <button type="button" class="pull-right btn btn-danger" ng-click="remCart(c.id)">
-                    <span class="glyphicon glyphicon-remove"/>
-                </button>
-            </div>
-
-        </li>
-    </ul>
-
-
-    <div class="row pull-right">
-
-        <div class="">
-            <span class="" style="padding-right: 20px">Total  </span>
-            <span class="">{{order.amount | currency}}</span>
-        </div>
-
-        <div ng-if="customer == null">
-            <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#login-modal" ng-click="login()">Fechar Pedido</button>
-        </div>
-
-        <div ng-if="customer != null">
-            <button class="pull-right btn btn-success" ng-click="requestOrder()">Fechar Pedido</button>
-        </div>
+        </ul>
 
     </div>
+    <div ng-if="carts.length > 0">
+        <ul class="list-group">
+            <label>Produtos</label>
+            <li class="list-group-item row" ng-repeat="c in carts track by $index">
 
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-            <div class="loginmodal-container">
-                <h1>Login to Your Account</h1><br>
-                <form>
-                    <input type="text" name="user" placeholder="Username">
-                    <input type="password" name="pass" placeholder="Password">
-                    <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-                </form>
+                <div class="col-md-2">
+                    <img width="48" height="48" src="{{ c.image }}" ng-href="#/product/{{c.id}}">
+                </div>
+
+                <div class="col-md-5">
+                    <a ng-href="#/product/{{c.id}}" >{{c.name}}</a>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="number" class="form-control" ng-model="c.quantity" ng-change="calc()" value="{{c.quantity}}" size="5" width="10"/>
+                </div>
+
+                <div class="col-md-2">{{c.price | currency:''}}</div>
+
+                <div class="col-md-1">
+                    <button type="button" class="pull-right btn btn-danger" ng-click="remCart(c.id)">
+                        <span class="glyphicon glyphicon-remove"/>
+                    </button>
+                </div>
+
+            </li>
+        </ul>
+
+
+        <div class="row pull-right">
+
+            <div class="">
+                <span class="" style="padding-right: 20px">Total  </span>
+                <span class="">{{order.amount | currency:''}}</span>
+            </div>
+
+            <div ng-if="customer == null">
+                <button type="button" class="pull-right btn btn-success" data-toggle="modal" data-target="#login-modal" ng-disabled="actionBlock" ng-click="login()">Fechar Pedido</button>
+            </div>
+
+            <div ng-if="customer != null">
+                <button class="pull-right btn btn-success" ng-click="requestOrder()" ng-disabled="actionBlock" >Fechar Pedido</button>
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <h1>Login to Your Account</h1><br>
+                    <form>
+                        <input type="text" name="user" placeholder="Username">
+                        <input type="password" name="pass" placeholder="Password">
+                        <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 

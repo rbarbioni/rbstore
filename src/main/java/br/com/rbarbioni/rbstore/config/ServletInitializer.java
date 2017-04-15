@@ -1,5 +1,6 @@
-package br.com.rbarbioni.rbstore;
+package br.com.rbarbioni.rbstore.config;
 
+import br.com.rbarbioni.rbstore.Application;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 

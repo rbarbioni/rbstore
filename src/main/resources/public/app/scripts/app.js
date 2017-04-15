@@ -5,7 +5,8 @@ var app = angular.module('rbstore',
         'ngResource',
         'ngCookies',
         'ui.bootstrap',
-        'angular-md5'
+        'angular-md5',
+        'angular-loading-bar'
     ]);
 
 

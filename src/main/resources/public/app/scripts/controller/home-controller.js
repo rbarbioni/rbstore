@@ -2,7 +2,7 @@
 
 var app = angular.module('rbstore');
 
-app.controller('HomeController', function($scope, $window, $routeParams, $location, ProductFactory) {
+app.controller('HomeController', function($scope, $window, $routeParams, $location, ProductFactory, CartService) {
 
     $scope.products = ProductFactory.findAll();
 
@@ -14,15 +14,8 @@ app.controller('HomeController', function($scope, $window, $routeParams, $locati
         $location.path('/cart');
     };
 
-    $scope.getCarts=function(n){
-        var _cart = $window.sessionStorage.getItem("cart");
-        if(_cart == null){
-            _cart = new Array();
-            return _cart;
-        }else{
-            _cart = JSON.parse(_cart)
-            return _cart;
-        }
+    $scope.getCarts=function(){
+        return CartService.carts();
     };
 
     $scope.goToDetail=function(p){

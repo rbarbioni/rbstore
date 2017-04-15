@@ -9,16 +9,24 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" />
+    <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.css" />
 
 
     <script type="text/javascript" src="//assets.moip.com.br/v2/moip.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/sockjs/1.0.1/sockjs.min.js"></script>
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
     <script src="node_modules/angular-cookies/angular-cookies.js"></script>
     <script src="node_modules/angular-resource/angular-resource.js"></script>
     <script src="node_modules/angular-md5/angular-md5.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="node_modules/angular-loading-bar/build/loading-bar.js"></script>
+
+    <script src="node_modules/stompjs/lib/stomp.min.js"></script>
+
+    <script src="node_modules/angular-loading-bar/build/loading-bar.js"></script>
+
     <script src="app/scripts/app.js"></script>
 
     <script src="app/scripts/controller/home-controller.js"></script>
@@ -26,10 +34,13 @@
     <script src="app/scripts/controller/product-controller.js"></script>
     <script src="app/scripts/controller/order-controller.js"></script>
     <script src="app/scripts/controller/payment-status-controller.js"></script>
+
     <script src="app/scripts/factory/product-factory.js"></script>
     <script src="app/scripts/factory/order-factory.js"></script>
     <script src="app/scripts/factory/login-factory.js"></script>
     <script src="app/scripts/factory/payment-factory.js"></script>
+    <script src="app/scripts/factory/socket-factory.js"></script>
+
     <script src="app/scripts/service/cart-service.js"></script>
     <script src="app/scripts/model/order.js"></script>
     <script src="app/scripts/model/payment.js"></script>

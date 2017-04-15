@@ -77,4 +77,8 @@ app.service('CartService', function ($window) {
     function getCarts() {
         return JSON.parse($window.sessionStorage.getItem("cart"));
     }
+
+    this.clear = function () {
+        $window.sessionStorage.setItem("cart", JSON.stringify(new Array()));
+    }
 });

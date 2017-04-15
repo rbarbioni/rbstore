@@ -12,15 +12,23 @@ app.controller('CartController', function ($scope, $window, $location, $cookieSt
     $scope.order.fundingInstrument = []
     $scope.order.fundingInstrument.method = 'method';
 
+    $scope.actionBlock = true;
     calc();
 
     $scope.remCart = function (id) {
         $scope.carts = CartService.rem(id);
+        if($scope.carts.length == 0){
+            $scope.order.amount = 0;
+            $scope.actionBlock = true;
+        }
     }
 
     function calc() {
         CartService.update($scope.carts);
         $scope.order.amount =  CartService.calc();
+        if($scope.order.amount > 0){
+            $scope.actionBlock = false;
+        }
     }
 
     $scope.calc = function () {

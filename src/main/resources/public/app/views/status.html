@@ -8,20 +8,27 @@
                 <p>Processando o pagamento do seu pedido</p>
             </div>
 
-            <div ng-show="inAnalysis == true" class="alert alert-warning">
+            <div ng-show="inAnalysis" class="alert alert-warning">
                 Em análise
             </div>
 
-            <div ng-show="preAuthorized == true" class="alert alert-info">
+            <div ng-show="preAuthorized" class="alert alert-info">
                 Pagamento pré autorizado
             </div>
 
-            <div ng-show="authorized == true" class="alert alert-success">
+            <div ng-show="authorized" class="alert alert-success">
                 Pagamento autorizado!
             </div>
 
-            <div ng-show="noAuthorized == true" class="alert alert-danger">
+            <div ng-show="noAuthorized" class="alert alert-danger">
                 Pagamento não autorizado, por favor verifique o pagamento com seu banco/cartão de crédito!
+            </div>
+
+            <div ng-show="authorized" class="alert">
+                <p>Obrigado pela compra!</p>
+                <p>Já iniciamos a separação do(s) seu(s) produto(s) em breve estará chegando!</p>
+                <p>Boa diversão</p>
+                <p><h2>:)</h2></p>
             </div>
 
         </div>

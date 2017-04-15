@@ -1,4 +1,4 @@
-package br.com.rbarbioni.rbstore;
+package br.com.rbarbioni.rbstore.config;
 
 /**
  * Created by renan on 12/02/17.

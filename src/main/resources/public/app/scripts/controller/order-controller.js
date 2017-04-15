@@ -18,6 +18,7 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
     $scope.payment.creditCard.expirationMonth = '12';
     $scope.payment.creditCard.expirationYear = '18';
 
+    $scope.promoCode = null;
 
     calc();
 
@@ -34,10 +35,22 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
         $scope.order.installmentCount = $scope.payment.installmentCount;
         OrderCalculatorFactory.calculator({}, $scope.order,
             function (result) {
+
                 $scope.order.ownId = result.ownId;
                 $scope.order.amount.subtotals.addition = result.addition;
                 $scope.order.amount.subtotals.discount = result.discount;
                 $scope.order.amount.subtotals.amount = result.amount;
+
+                if($scope.order.code != null && $scope.order.amount.subtotals.discount == 0){
+                    $scope.promoCode = true
+                }else{
+                    $scope.promoCode = false;
+                }
+
+                if($scope.order.code == undefined || $scope.order.code == ''){
+                    $scope.promoCode = null;
+                }
+
             },
             function (error) {
                 console.log(error)
@@ -82,10 +95,8 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
         $scope.order.items = sintetizeItens();
 
         OrderFactory.order({}, $scope.order, function (result) {
-            console.log(result);
-
             requestPayment(result.id);
-
+            CartService.clear();
         }, function (error) {
             console.log(error);
         })
