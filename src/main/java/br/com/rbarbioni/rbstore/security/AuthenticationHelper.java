@@ -22,7 +22,7 @@ public class AuthenticationHelper {
     }
 
     public Authentication auth (Customer account) throws JsonProcessingException {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(account.getEmail(), null, null);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(account.getEmail(), account.getPassword(), null);
         authenticationToken.setDetails(account);
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authenticationToken);

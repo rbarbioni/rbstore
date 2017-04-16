@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class LoginService {
 
-    private static final String LOGIN_ERROR = "Login ou senha inválidos";
+    private static final String LOGIN_ERROR = "Usuário ou senha inválidos";
 
     private final CustomerService customerService;
 
@@ -44,7 +44,7 @@ public class LoginService {
         Customer customer = this.customerService.findByEmail(email);
 
         if(customer == null || !password.equals(customer.getPassword())){
-            throw new BusinessException(HttpStatus.UNAUTHORIZED.value(), LOGIN_ERROR);
+            throw new BusinessException(HttpStatus.BAD_REQUEST.value(), LOGIN_ERROR);
         }
 
         return customer;

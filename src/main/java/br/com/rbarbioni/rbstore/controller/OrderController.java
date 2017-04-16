@@ -15,7 +15,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/secure/api/order")
 public class OrderController {
 
     private final OrderService orderService;

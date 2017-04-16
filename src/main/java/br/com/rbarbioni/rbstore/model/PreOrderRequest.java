@@ -55,6 +55,10 @@ public class PreOrderRequest implements Serializable {
 
     public BigDecimal getAmount(){
         BigDecimal amount = BigDecimal.ZERO;
+        if(products == null){
+            return amount;
+        }
+
         for (Product product : products) {
             amount = amount.add(product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())));
         }

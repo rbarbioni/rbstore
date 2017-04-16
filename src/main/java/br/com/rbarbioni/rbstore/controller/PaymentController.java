@@ -12,7 +12,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/secure/api/payment")
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -20,11 +20,6 @@ public class PaymentController {
     @Autowired
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
-    }
-
-    @RequestMapping(value = "/hook", method = {RequestMethod.POST})
-    public void webhook(@RequestBody String data) throws IOException {
-        this.paymentService.processWebHook(data);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})

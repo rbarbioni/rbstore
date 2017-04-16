@@ -5,7 +5,7 @@ var app = angular.module('rbstore');
 
 app.factory('OrderCalculatorFactory', function ($resource, $cookieStore) {
 
-    return $resource(endpoint + '/api/order/calculator',
+    return $resource(endpoint + '/secure/api/order/calculator',
         {},
 
         {
@@ -21,7 +21,7 @@ app.factory('OrderCalculatorFactory', function ($resource, $cookieStore) {
 
 app.factory('OrderFactory', function ($resource, $cookieStore) {
 
-    return $resource(endpoint + '/api/order',
+    return $resource(endpoint + '/secure/api/order',
         {},
 
         {
@@ -37,7 +37,7 @@ app.factory('OrderFactory', function ($resource, $cookieStore) {
 
 app.factory('OrderPaymentFactory', function ($resource, $cookieStore) {
 
-    return $resource(endpoint + '/api/order/:id/payment',
+    return $resource(endpoint + '/secure/api/order/:id/payment',
         {
             id: '@id'
         },

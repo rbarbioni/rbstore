@@ -3,16 +3,16 @@
 var app = angular.module('rbstore');
 
 
-app.factory('PaymentFactory', function ($resource, $cookieStore) {
+app.factory('PaymentFactory', function ($resource, $window) {
 
-    return $resource(endpoint + '/api/payment/:id',
+    return $resource(endpoint + '/secure/api/payment/:id',
         {},
 
         {
             find: {
                 method: 'GET',
                 headers: {
-                    'Authorization':  $cookieStore.get('token')
+                    'Authorization':  $window.sessionStorage.token
                 }
             }
         }
