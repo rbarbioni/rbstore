@@ -2,9 +2,9 @@
 
 var app = angular.module('rbstore');
 
-app.controller('OrderController', function ($scope, $window, $location, OrderCalculatorFactory, OrderFactory, OrderPaymentFactory, LoginFactory, CartService) {
+app.controller('OrderController', function ($scope, $window, $location, OrderCalculatorFactory, OrderFactory, OrderPaymentFactory, ConfigurationFactory, CartService) {
 
-    var publicKey = '-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBttaXwRoI1Fbcond5mS7QOb7X2lykY5hvvDeLJelvFhpeLnS4YDwkrnziM3W00UNH1yiSDU+3JhfHu5G387O6uN9rIHXvL+TRzkVfa5iIjG+ap2N0/toPzy5ekpgxBicjtyPHEgoU6dRzdszEF4ItimGk5ACx/lMOvctncS5j3uWBaTPwyn0hshmtDwClf6dEZgQvm/dNaIkxHKV+9jMn3ZfK/liT8A3xwaVvRzzuxf09xJTXrAd9v5VQbeWGxwFcW05oJulSFjmJA9HcmbDYHJT+sG2mlZDEruCGAzCVubJwGY1aRlcs9AQc1jIm/l8JwH7le2kpk3QoX+gz0wWwIDAQAB-----END PUBLIC KEY-----';
+    var publicKey = null;
     $scope.cart = CartService.getCart();
     $scope.order = new Order();
     $scope.order.items = $scope.cart;
@@ -58,25 +58,6 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
         );
     }
 
-    $scope.login = function () {
-
-        LoginFactory.login({}, {email: "joaosilva@email.com", password: "testemoip"},
-
-            function (result) {
-                console.log(result);
-                $scope.customer = result.customer;
-                $window.sessionStorage.token = result.token;
-                $window.location.assign('#/order');
-            },
-
-            function (error) {
-                console.log(error);
-                $scope.errors = error;
-            }
-        );
-
-    }
-
     function sintetizeItens() {
 
         var items = new Array();
@@ -90,20 +71,49 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
         return items;
     }
 
-    $scope.requestOrder = function () {
+    $scope.validateOrder = function () {
+
+        if(publicKey == null){
+            ConfigurationFactory.findAll(
+                function (result) {
+                    publicKey = result.publicKey;
+                    var cc = validateCreditCard(publicKey);
+                    if(cc != null){
+                        processOrder(cc);
+                    }else{
+                        $scope.creditCardError = 'Cartão de crédito inválido';
+                    }
+                }
+            );
+        }else{
+            var cc = validateCreditCard(publicKey);
+            if(cc != null){
+                processOrder(cc);
+            }else{
+                $scope.creditCardError = 'Cartão de crédito inválido';
+            }
+        }
+    }
+
+    function processOrder(cc) {
+        $scope.creditCardError = null;
+        $scope.payment.fundingInstrument.creditCard.hash = cc.hash();
+        $scope.payment.fundingInstrument.creditCard.holder.fullname = $scope.order.customer.fullname;
+        $scope.payment.fundingInstrument.creditCard.holder.birthdate = $scope.order.customer.birthDate;
+        $scope.payment.fundingInstrument.creditCard.holder.taxDocument = $scope.order.customer.taxDocument;
+        $scope.payment.fundingInstrument.creditCard.holder.phone = $scope.order.customer.phone;
 
         $scope.order.items = sintetizeItens();
 
         OrderFactory.order({}, $scope.order, function (result) {
             requestPayment(result.id);
-            CartService.clear();
+
         }, function (error) {
             console.log(error);
         })
     }
 
-    function requestPayment(orderId) {
-
+    function validateCreditCard(publicKey) {
         var cc = new Moip.CreditCard({
             number  : $scope.payment.creditCard.number,
             cvc     : $scope.payment.creditCard.cvc,
@@ -112,32 +122,19 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
             pubKey  : publicKey
         });
 
-        console.log(cc);
-        if( cc.isValid()){
+        return cc.isValid() ? cc : null;
+    }
 
-            $scope.payment.fundingInstrument.creditCard.hash = cc.hash();
-            $scope.payment.fundingInstrument.creditCard.holder.fullname = $scope.order.customer.fullname;
-            $scope.payment.fundingInstrument.creditCard.holder.birthdate = $scope.order.customer.birthDate;
-            $scope.payment.fundingInstrument.creditCard.holder.taxDocument = $scope.order.customer.taxDocument;
-            $scope.payment.fundingInstrument.creditCard.holder.phone = $scope.order.customer.phone;
-
-
-            OrderPaymentFactory.payment({id : orderId}, $scope.payment,
-                function (result) {
-                    console.log(result);
-                    $window.location.assign('#/status/' + result.id);
-                },
-                function (error) {
-                    console.log(error);
-                }
-            );
-
-        }
-        else{
-
-        }
-
-
+    function requestPayment(orderId) {
+        OrderPaymentFactory.payment({id : orderId}, $scope.payment,
+            function (result) {
+                console.log(result);
+                CartService.clear();
+                $window.location.assign('#/status/' + result.id);
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
     }
 });
-

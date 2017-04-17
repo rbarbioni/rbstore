@@ -1,6 +1,6 @@
 <div class="jumbotron container" ng-controller="OrderController">
 
-    <div ng-if="cart == null || carts.length == 0">
+    <div ng-if="cart == null || cart.length == 0">
         <ul class="list-group">
             <div align="center">
                 <h1>Carrinho Vazio</h1>
@@ -66,11 +66,11 @@
             <div class="form-inline">
 
                 <div class="col-md-4">
-                    <input class="form-control" name="{{payment.creditCard.number}}" ng-model="payment.creditCard.number" type="text" placeholder="Numero Cartão Crédito" ng-maxlength="25">
+                    <input required class="form-control" name="{{payment.creditCard.number}}" ng-model="payment.creditCard.number" type="text" placeholder="Numero Cartão Crédito" ng-maxlength="25">
                 </div>
 
                 <div class="col-md-2">
-                    <select class="form-control" placeholder="Mês Vencimento" class="form-control" data-show-icon="true" ng-model="payment.creditCard.expirationMonth">
+                    <select required class="form-control" placeholder="Mês Vencimento" class="form-control" data-show-icon="true" ng-model="payment.creditCard.expirationMonth">
                         <option value="" selected disabled>Mês Vencimento</option>
                         <option value="1">Janeiro</option>
                         <option value="2">Fevereiro</option>
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <select placeholder="Ano Vencimento" class="form-control" data-show-icon="true" ng-model="payment.creditCard.expirationYear">
+                    <select required placeholder="Ano Vencimento" class="form-control" data-show-icon="true" ng-model="payment.creditCard.expirationYear">
                         <option value="" selected disabled>Ano Vencimento</option>
                         <option value="17">2017</option>
                         <option value="18">2018</option>
@@ -103,7 +103,11 @@
                 </div>
 
                 <div class="col-md-2">
-                    <select placeholder="Parcelas" class="form-control" data-show-icon="true" ng-change="calc()" ng-model="payment.installmentCount">
+                    <input class="form-control" name="{{payment.creditCard.cvc}}" ng-model="payment.creditCard.cvc" type="text" laceholder="Código Segurança" ng-maxlength="25">
+                </div>
+
+                <div class="col-md-2">
+                    <select required placeholder="Parcelas" class="form-control" data-show-icon="true" ng-change="calc()" name="{{payment.installmentCount}}" ng-model="payment.installmentCount">
                         <option value="" selected disabled>Parcelas</option>
                         <option value="1">1x</option>
                         <option value="2">2x</option>
@@ -120,9 +124,10 @@
                     </select>
                 </div>
 
-                <div class="col-md-2">
-                    <input class="form-control" name="{{payment.creditCard.cvc}}" ng-model="payment.creditCard.cvc" type="text" laceholder="Código Segurança" ng-maxlength="25">
+                <div ng-show="creditCardError" class="alert alert-danger">
+                    <span>{{creditCardError}}</span>
                 </div>
+
             </div>
         </div>
 
@@ -145,7 +150,7 @@
                 <span class="">{{order.amount.subtotals.amount | currency:''}}</span>
             </div>
 
-            <button class="pull-right btn btn-lg btn-primary btn-block" ng-click="requestOrder()">Fechar Pedido</button>
+            <button class="pull-right btn btn-lg btn-primary btn-block" ng-click="validateOrder()">Finalizar Compra</button>
 
         </div>
 
