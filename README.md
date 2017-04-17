@@ -7,6 +7,8 @@ Não foi utilizado camada de persistência de dados, todos os dados são carrega
 - Java 8
 - Spring-Boot
 - Spring-Web
+- Spring-IntegrationTests
+- JUnit
 - Validator
 - Jackson
 - Gradle
