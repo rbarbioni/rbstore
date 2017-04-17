@@ -13,5 +13,13 @@ Projeto contém Backend e FrontEnd com uma pequeno E-Commerce onde é possível 
 - Bootstrap
 ## Como testar
 
+</pre>
 git clone https://github.com/rbarbioni/rbstore.git
 cd rbstore
+chmod -x gradlew
+gradle clean build
+java -jar build/libs/rbstore-0.0.1-SNAPSHOT.war
+
+Aplicação será executada em http://localhost:8080
+
+</pre>
