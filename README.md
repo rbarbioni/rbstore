@@ -11,7 +11,7 @@ Projeto contém Backend e FrontEnd com uma pequeno E-Commerce onde é possível 
 - Gradle
 - AngularJS
 - Bootstrap
-## Como testar
+## Como Rodar
 
 <pre>
 git clone https://github.com/rbarbioni/rbstore.git
@@ -23,3 +23,37 @@ java -jar build/libs/rbstore-0.0.1-SNAPSHOT.war
 Aplicação será executada em http://localhost:8080
 
 </pre>
+
+## Como Testar
+
+Os produtos são fictícios e os valores não representam a realidade.
+Quando for requirido autenticação utilize:
+<pre>
+e-mail: joaosilva@email.com
+password: testemoip 
+</pre>
+
+Na parte de pagamento, utilizar as informações abaixo:
+
+<pre>
+
+Cartão de Crédito: 5555666677778884
+Código Verificação: 123
+Mês de Expiração: Dezembro
+Ano de Expiração: 2018
+
+</pre>
+
+Opcionalmente poderá utilizar Código Promocional que dará 5% de desconto:
+
+<pre>
+OISO334332K9
+112DKIXK2223
+09OOID33DCD3
+</pre>
+
+Pagamento parcelado acréssimo de 2.5%
+
+## Live on Openshift
+https://rbstore-pusherad.rhcloud.com
+
