@@ -1,6 +1,7 @@
 package br.com.rbarbioni.rbstore.service;
 
-import br.com.rbarbioni.rbstore.model.*;
+import br.com.rbarbioni.rbstore.model.PromoCode;
+import br.com.rbarbioni.rbstore.repository.PromoCodeRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -23,64 +23,31 @@ import java.util.Arrays;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(MockitoJUnitRunner.class)
-public class OrderServiceTest {
-
+public class PromoCodeServiceTest {
 
     @InjectMocks
-    private OrderService orderService;
-
-    @Mock
     private PromoCodeService promoCodeService;
 
-    private Customer customer = new Customer("joaosilva@email.com", "testemoip", "CUS-12345678901");
+    @Mock
+    private PromoCodeRepository promoCodeRepository;
 
     @Before
     public void before(){
-        ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0.025));
+        ReflectionTestUtils.setField(promoCodeService, "promoCodeRepository", promoCodeRepository);
+        PromoCode promoCode = new PromoCode("Promo", "123", BigDecimal.valueOf(0.5));
+        Mockito.when(promoCodeRepository.findAll()).thenReturn(Arrays.asList(promoCode));
+        Mockito.when(promoCodeRepository.findById("123")).thenReturn(promoCode);
     }
 
     @Test
-    public void calcWithDiscountTest(){
-        ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
-        Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(new PromoCode("Promo 1", "11231223", BigDecimal.valueOf(0.05)));
-
-        Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
-        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(95.00 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue((100.00-95.00) == preOrderResponse.getDiscount().doubleValue());
+    public void findByCode(){
+        PromoCode promoCode = this.promoCodeService.find("123");
+        Assert.assertNotNull(promoCode);
     }
 
     @Test
-    public void calcWithoutDiscountWithAdditionalTest(){
-        Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
-        Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 2, customer);
-        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(102.500 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue((2.500) == preOrderResponse.getAddition().doubleValue());
-    }
-
-    @Test
-    public void calcWithoutDiscountTest(){
-        Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
-        ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
-        Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
-        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(100.00 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue(0.0 == preOrderResponse.getDiscount().doubleValue());
-    }
-
-    @Test
-    public void calcWithoutDiscountManyProductsMultiQuantityTest(){
-        Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
-        ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
-        Product product1 = new Product(1L, "", "", "", BigDecimal.valueOf(150), 1, 2);
-        Product product2 = new Product(1L, "", "", "", BigDecimal.valueOf(150), 1, 3);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product1, product2), "", 1, customer);
-        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(750.00 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue(0.0 == preOrderResponse.getDiscount().doubleValue());
+    public void findByCodeInvalid(){
+        PromoCode promoCode = this.promoCodeService.find("1234");
+        Assert.assertNull(promoCode);
     }
 }

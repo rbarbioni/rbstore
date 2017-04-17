@@ -1,7 +1,5 @@
 package br.com.rbarbioni.rbstore.service;
 
-import br.com.rbarbioni.rbstore.model.PromoCode;
-import br.com.rbarbioni.rbstore.repository.PromoCodeRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -12,10 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Created by renan on 08/04/17.
@@ -23,31 +21,29 @@ import java.util.Arrays;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(MockitoJUnitRunner.class)
-public class PromoCodeServiceTest {
+public class ConfigurationServiceTest {
 
     @InjectMocks
-    private PromoCodeService promoCodeService;
+    private ConfigurationService configurationService;
 
     @Mock
-    private PromoCodeRepository promoCodeRepository;
+    private Environment environment;
 
     @Before
     public void before(){
-        ReflectionTestUtils.setField(promoCodeService, "promoCodeRepository", promoCodeRepository);
-        PromoCode promoCode = new PromoCode("Promo", "123", BigDecimal.valueOf(0.5));
-        Mockito.when(promoCodeRepository.findAll()).thenReturn(Arrays.asList(promoCode));
-        Mockito.when(promoCodeRepository.findById("123")).thenReturn(promoCode);
+        ReflectionTestUtils.setField(configurationService, "environment", environment);
+        Mockito.when(environment.getProperty("publicKey")).thenReturn("kkk");
     }
 
     @Test
-    public void findByCode(){
-        PromoCode promoCode = this.promoCodeService.find("123");
-        Assert.assertNotNull(promoCode);
+    public void findAll(){
+        Map<String, Object> map = configurationService.findAll();
+        Assert.assertNotNull(map);
     }
 
     @Test
-    public void findByCodeInvalid(){
-        PromoCode promoCode = this.promoCodeService.find("1234");
-        Assert.assertNull(promoCode);
+    public void findAllEmpty(){
+        Map<String, Object> map = configurationService.findAll();
+        Assert.assertNotNull(map);
     }
 }

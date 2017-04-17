@@ -40,19 +40,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void calcApplyingAllDiscountsTest(){
-
-        Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(new PromoCode("Promo 1", "11231223", BigDecimal.valueOf(0.05)));
-
-        Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
-        PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(92.625 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue((100.00-92.625) == preOrderResponse.getDiscount().doubleValue() );
-    }
-
-    @Test
-    public void calcApplyingPromoCodeTest(){
+    public void calcWithDiscountTest(){
         ReflectionTestUtils.setField(orderService, "discountInstallmentCount", BigDecimal.valueOf(0));
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(new PromoCode("Promo 1", "11231223", BigDecimal.valueOf(0.05)));
 
@@ -64,13 +52,13 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void calcApplyingInstallmentCountTest(){
+    public void calcWithoutDiscountWithAdditionalTest(){
         Mockito.when(promoCodeService.find(Matchers.anyString())).thenReturn(null);
         Product product = new Product(1L, "", "", "", BigDecimal.valueOf(100), 1, 1);
-        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 1, customer);
+        PreOrderRequest preOrderRequest = new PreOrderRequest(Arrays.asList(product), "", 2, customer);
         PreOrderResponse preOrderResponse = orderService.calculator(preOrderRequest);
-        Assert.assertTrue(97.50 == preOrderResponse.getAmount().doubleValue());
-        Assert.assertTrue((100.00-97.50) == preOrderResponse.getDiscount().doubleValue());
+        Assert.assertTrue(102.500 == preOrderResponse.getAmount().doubleValue());
+        Assert.assertTrue((2.500) == preOrderResponse.getAddition().doubleValue());
     }
 
     @Test
