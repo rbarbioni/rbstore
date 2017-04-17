@@ -21,7 +21,6 @@ import java.util.Map;
 @Service
 public class MoipService {
 
-
     private static final String PAYMENT_STATUS_URL = "https://sandbox.moip.com.br/v2/payments/{id}";
 
     private static final String CUSTOMER_URL = "https://sandbox.moip.com.br/v2/customers/{id}";
@@ -34,10 +33,13 @@ public class MoipService {
 
     private final String authorization;
 
+    private final RestTemplate restTemplate;
+
     @Autowired
     public MoipService(ObjectMapper objectMapper, @Value("${security.moip.authorization}") String authorization) {
         this.objectMapper = objectMapper;
         this.authorization = authorization;
+        this.restTemplate = new RestTemplate();
     }
 
     public Map<String, Object> findStatus(String moipId) throws IOException {
@@ -64,7 +66,7 @@ public class MoipService {
             request = new HttpEntity(body, getHeadersWithAuthorization());
         }
 
-        ResponseEntity<String> responseEntity = new RestTemplate().exchange(url, httpMethod, request, String.class);
+        ResponseEntity<String> responseEntity = this.restTemplate.exchange(url, httpMethod, request, String.class);
         if(responseEntity.getStatusCodeValue() >= 200 && responseEntity.getStatusCodeValue() <= 299){
             return this.objectMapper.readValue(responseEntity.getBody(), responseBody);
         }
