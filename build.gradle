@@ -39,6 +39,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile ('io.jsonwebtoken:jjwt:0.7.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.apache.httpcomponents:httpclient')
 }
 
 task wrapper(type: Wrapper) {
