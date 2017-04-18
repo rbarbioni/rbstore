@@ -103,11 +103,11 @@
                 </div>
 
                 <div class="col-md-2">
-                    <input class="form-control" name="{{payment.creditCard.cvc}}" ng-model="payment.creditCard.cvc" type="text" laceholder="Código Segurança" ng-maxlength="25">
+                    <input class="form-control" name="{{payment.creditCard.cvc}}" ng-model="payment.creditCard.cvc" placeholder="CVC" type="text" laceholder="Código Segurança" ng-maxlength="25">
                 </div>
 
                 <div class="col-md-2">
-                    <select required placeholder="Parcelas" class="form-control" data-show-icon="true" ng-change="calc()" name="{{payment.installmentCount}}" ng-model="payment.installmentCount">
+                    <select required placeholder="Parcelas" class="form-control" data-show-icon="true" ng-change="calc()" ng-model="payment.installmentCount">
                         <option value="" selected disabled>Parcelas</option>
                         <option value="1">1x</option>
                         <option value="2">2x</option>

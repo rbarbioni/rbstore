@@ -12,11 +12,11 @@ app.controller('OrderController', function ($scope, $window, $location, OrderCal
     $scope.payment = new Payment();
 
     $scope.payment.creditCard = new Object();
-    $scope.payment.installmentCount = 1;
-    $scope.payment.creditCard.number = 5555666677778884;
-    $scope.payment.creditCard.cvc = '123';
-    $scope.payment.creditCard.expirationMonth = '12';
-    $scope.payment.creditCard.expirationYear = '18';
+    $scope.payment.installmentCount = null;
+    // $scope.payment.creditCard.number = 5555666677778884;
+    // $scope.payment.creditCard.cvc = '123';
+    // $scope.payment.creditCard.expirationMonth = '12';
+    // $scope.payment.creditCard.expirationYear = '18';
 
     $scope.promoCode = null;
 
